@@ -1,0 +1,29 @@
+---
+/** Toggle ES/EN — el comportamiento vive en scripts/i18n-client.ts. */
+---
+<div
+  class="inline-flex items-center rounded-full border border-dorado/40 bg-white/70 p-0.5 text-sm font-semibold backdrop-blur"
+  role="group"
+  aria-label="Idioma / Language"
+>
+  <button
+    type="button"
+    data-lang-btn="es"
+    class="lang-btn rounded-full px-3 py-1 transition-colors"
+    aria-pressed="true"
+  >ES</button>
+  <button
+    type="button"
+    data-lang-btn="en"
+    class="lang-btn rounded-full px-3 py-1 transition-colors"
+    aria-pressed="false"
+  >EN</button>
+</div>
+
+<style>
+  .lang-btn { color: var(--color-gris-suave); }
+  .lang-btn.lang-active {
+    background: var(--color-rosa);
+    color: #fff;
+  }
+</style>

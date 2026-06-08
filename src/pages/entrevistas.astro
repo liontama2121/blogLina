@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import MediaGrid from '../components/MediaGrid.astro';
+import PhotoGallery from '../components/PhotoGallery.astro';
+import Squiggle from '../components/Squiggle.astro';
+import { getDict, DEFAULT_LANG } from '../i18n';
+import media from '../data/media.json';
+const lang = DEFAULT_LANG;
+const d = getDict(lang);
+type Item = { tipo: string; src: string; poster: string; titulo: string; ratio: string };
+const items = media as Item[];
+const byTipo = (t: string) => items.filter((m) => m.tipo === t);
+const entrevistasVideo = byTipo('video_entrevista');
+const campoVideo = byTipo('video');
+const fotos = byTipo('image');
+---
+<BaseLayout lang={lang} title={d.nav.entrevistas} description={d.periodista.text}>
+  <!-- Periodista -->
+  <section class="bg-blush/50">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+      <SectionTitle i18nKey="periodista.title" text={d.periodista.title} />
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-gris-suave" data-reveal data-i18n="periodista.text">{d.periodista.text}</p>
+      <div class="mt-12"><MediaGrid items={entrevistasVideo} /></div>
+    </div>
+  </section>
+
+  <!-- Campo -->
+  <section class="relative overflow-hidden bg-crema">
+    <Squiggle variant="wave" width="320" class="pointer-events-none absolute right-6 top-10 opacity-70" />
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+      <div class="flex items-center gap-4">
+        <SectionTitle i18nKey="campo.title" text={d.campo.title} squiggle={false} />
+        <span class="badge-live mt-2" data-i18n="reel.live">EN VIVO</span>
+      </div>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-gris-suave" data-reveal data-i18n="campo.text">{d.campo.text}</p>
+      <div class="mt-12">
+        <MediaGrid items={campoVideo} live={true} emptyText={d.campo.empty} emptyKey="campo.empty" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Entrevistas con artistas (fotos) -->
+  <section class="bg-blush-2/40">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+      <SectionTitle i18nKey="entrevistas.title" text={d.entrevistas.title} align="center" />
+      <p class="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-gris-suave" data-reveal data-i18n="entrevistas.text">{d.entrevistas.text}</p>
+      <div class="mt-12"><PhotoGallery items={fotos} /></div>
+    </div>
+  </section>
+</BaseLayout>

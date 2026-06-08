@@ -1,0 +1,43 @@
+---
+/** Tarjeta de medio: logo + botón "ver y descubre" → link externo. */
+interface Props {
+  nombre: string;
+  url: string;
+  logoSrc?: string;
+  ctaText?: string;
+  ctaKey?: string;
+  placeholder?: boolean; // URL pendiente (ej. RTVC)
+}
+const { nombre, url, logoSrc, ctaText = 'Ver y descubre', ctaKey, placeholder = false } = Astro.props;
+const disabled = placeholder || url === '#';
+---
+<article
+  class="flex flex-col items-center gap-5 rounded-3xl border border-dorado/30 bg-white/60 p-7 text-center shadow-[var(--shadow-soft)] transition-transform duration-300 hover:-translate-y-1"
+  data-reveal
+>
+  <div class="flex h-20 w-full items-center justify-center">
+    {logoSrc ? (
+      <img src={logoSrc} alt={`Logo ${nombre}`} loading="lazy" class="max-h-16 w-auto max-w-[80%] object-contain" />
+    ) : (
+      <span class="font-display text-2xl italic text-rosa">{nombre}</span>
+    )}
+  </div>
+  <h3 class="sr-only">{nombre}</h3>
+  {disabled ? (
+    <span
+      class="pill pill-outline cursor-not-allowed opacity-50"
+      aria-disabled="true"
+      title="URL pendiente"
+      {...(ctaKey ? { 'data-i18n': ctaKey } : {})}
+    >{ctaText}</span>
+  ) : (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="pill pill-outline"
+      aria-label={`${ctaText} — ${nombre}`}
+      {...(ctaKey ? { 'data-i18n': ctaKey } : {})}
+    >{ctaText}</a>
+  )}
+</article>

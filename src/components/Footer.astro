@@ -1,0 +1,16 @@
+---
+import Squiggle from './Squiggle.astro';
+import { SITE } from '../data/site';
+import { getDict, DEFAULT_LANG, type Lang } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = DEFAULT_LANG } = Astro.props;
+const d = getDict(lang);
+const year = new Date().getFullYear();
+---
+<footer class="bg-carbon py-10 text-center text-sm text-crema/70">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mb-4 flex justify-center"><Squiggle variant="wave" width="120" color="var(--color-coral)" /></div>
+    <p data-i18n="footer.made">{d.footer.made}</p>
+    <p class="mt-2 text-crema/40">© {year} {SITE.nombreCompleto}</p>
+  </div>
+</footer>

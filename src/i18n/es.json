@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "title": "Lina Marcela Pérez — Periodista digital de entretenimiento & creadora de contenido",
+    "description": "Portafolio de Lina Marcela Pérez Villegas: periodista digital de entretenimiento, creadora de contenido bilingüe (C1). Cobertura, entrevistas, reels y trabajo con marcas."
+  },
+  "nav": {
+    "inicio": "Inicio",
+    "quienSoy": "Quién soy",
+    "contratarme": "Por qué contratarme",
+    "entrevistas": "Mis entrevistas",
+    "logros": "Logros",
+    "estadisticas": "Estadísticas",
+    "perfil": "Perfil",
+    "periodista": "Periodista",
+    "campo": "Campo",
+    "redaccion": "Redacción",
+    "redes": "Redes",
+    "marcas": "Para marcas",
+    "contacto": "Contacto"
+  },
+  "home": {
+    "intro": "Periodista digital de entretenimiento y creadora de contenido. Explora mi trabajo, mis entrevistas y por qué puedo aportar a tu medio o tu marca.",
+    "explorar": "Explora",
+    "cards": {
+      "quienSoy": "Conoce mi historia y mi perfil bilingüe.",
+      "contratarme": "Qué ofrezco a medios y marcas.",
+      "entrevistas": "Entrevistas, cobertura y trabajo en vivo.",
+      "logros": "Medios, festivales y colaboraciones.",
+      "estadisticas": "Audiencia y números en redes."
+    },
+    "ver": "Ver"
+  },
+  "logros": {
+    "title": "Logros",
+    "text": "Trayectoria que respalda mi trabajo: medios nacionales, coberturas en vivo y colaboraciones con artistas y marcas.",
+    "mediosTitle": "Medios donde he publicado",
+    "highlightsTitle": "Coberturas y hitos",
+    "items": [
+      "Periodista, editora y guionista para RCN Radio y el programa en vivo XYZ.",
+      "Publicaciones en La FM, La Mega y RCN Radio.",
+      "Cobertura para RTVC — País de la Belleza (Santa Marta, El Rodadero).",
+      "Cubrimiento de Premios Nuestra Tierra y MasterChef Celebrity.",
+      "Cobertura del Festival Cordillera (Juan Luis Guerra, Miranda!).",
+      "Entrevistas a artistas nacionales e internacionales (Rojo Carmesí, A La Mosca, Oki Doki, entre otros)."
+    ]
+  },
+  "estadisticas": {
+    "title": "Estadísticas",
+    "text": "Números reales de mi comunidad. Una audiencia activa que confía en mi contenido.",
+    "labels": {
+      "seguidores": "Seguidores",
+      "likes": "Likes",
+      "vistas": "Vistas promedio",
+      "engagement": "Engagement",
+      "alcance": "Alcance mensual",
+      "audiencia": "Audiencia",
+      "edad": "Edad principal",
+      "genero": "Género",
+      "ciudades": "Ciudades top"
+    },
+    "nota": "Algunos datos están en actualización."
+  },
+  "hero": {
+    "role": "Periodista digital de entretenimiento · Creadora de contenido",
+    "badge": "Inglés C1",
+    "ctaReel": "Ver showreel",
+    "ctaKit": "Hoja de vida / CV",
+    "cvUrl": "/media/cv/CV-Lina-Marcela-Perez-ES.pdf",
+    "scroll": "Desliza"
+  },
+  "perfil": {
+    "title": "Mi perfil",
+    "bio": "¡Hola! Soy Lina Marcela Pérez, periodista digital y creadora de contenido con experiencia en entretenimiento, moda y belleza. Mi pasión es comunicar y conectar con las personas a través de historias auténticas y contenido innovador. Gracias a mi trabajo, he colaborado con diversas marcas y artistas, lo que me ha permitido desarrollar una visión estratégica para la creación de contenido impactante. Además, mi manejo avanzado del inglés (C1) me permite llevar mi mensaje a una audiencia más amplia."
+  },
+  "periodista": {
+    "title": "Mi trabajo como periodista",
+    "text": "Experiencia en contenidos digitales como periodista, editora y desarrolladora de guiones para RCN Radio y el programa en vivo XYZ. Cuento historias que conectan, con criterio editorial y voz propia frente a cámara."
+  },
+  "campo": {
+    "title": "Mi trabajo de campo",
+    "text": "Cobertura de eventos en vivo: conciertos, estrenos de TV, alfombras rojas y festivales como Premios Nuestra Tierra y MasterChef Celebrity. Reporto desde el lugar, con energía y cercanía.",
+    "empty": "Próximamente: clips de cobertura en vivo. Agrega videos en public/media/video/."
+  },
+  "entrevistas": {
+    "title": "Entrevistas con artistas",
+    "text": "He entrevistado a artistas nacionales e internacionales, creando momentos auténticos y conversaciones memorables."
+  },
+  "redaccion": {
+    "title": "Mi trabajo de redacción",
+    "text": "Cada publicación refleja mi compromiso con el periodismo de calidad: rigor, claridad y una mirada fresca del entretenimiento.",
+    "cta": "Ver y descubre"
+  },
+  "redes": {
+    "title": "Mis publicaciones en redes sociales",
+    "text": "Moda, lifestyle, hauls, GRWM y \"A day in my life\": contenido cercano que genera comunidad."
+  },
+  "marcas": {
+    "title": "Trabajemos juntos",
+    "text": "Periodista y creadora bilingüe (C1), con experiencia en medios nacionales y foco en entretenimiento, moda y belleza. Llevo tu marca a la cámara con tono auténtico y estrategia.",
+    "servicios": {
+      "host": { "t": "Presentación / host de eventos", "d": "Conducción en vivo y moderación con soltura frente a cámara y público." },
+      "ugc": { "t": "UGC & reels", "d": "Contenido vertical que convierte: hooks, ritmo y estética cuidada." },
+      "redes": { "t": "Manejo de redes", "d": "Estrategia, calendario y comunidad para crecer con intención." },
+      "redaccion": { "t": "Redacción de contenidos", "d": "Notas, guiones y copys con criterio periodístico." },
+      "entrevistas": { "t": "Entrevistas / cubrimientos", "d": "Cobertura de eventos y entrevistas con artistas y marcas." }
+    },
+    "metricas": {
+      "title": "En números",
+      "ig": "Instagram",
+      "tiktok": "TikTok",
+      "alcance": "Alcance mensual",
+      "placeholder": "—"
+    },
+    "cta": "Hablemos por WhatsApp",
+    "ctaEmail": "Escríbeme un correo"
+  },
+  "contacto": {
+    "title": "See you soon",
+    "subtitle": "XOXO",
+    "text": "¿Trabajamos juntos o quieres saber más de mí? Estoy a un mensaje de distancia.",
+    "cta": "Escríbeme por WhatsApp",
+    "email": "Email"
+  },
+  "social": {
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "whatsapp": "WhatsApp"
+  },
+  "footer": {
+    "made": "Hecho con amor por JuanCode."
+  },
+  "reel": {
+    "play": "Reproducir video",
+    "live": "EN VIVO"
+  }
+}

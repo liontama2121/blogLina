@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Squiggle from '../components/Squiggle.astro';
+import { getDict, DEFAULT_LANG } from '../i18n';
+import { SITE } from '../data/site';
+const lang = DEFAULT_LANG;
+const d = getDict(lang);
+const servicios = ['host', 'ugc', 'redes', 'redaccion', 'entrevistas'] as const;
+---
+<BaseLayout lang={lang} title={d.nav.contratarme} description={d.marcas.text}>
+  <section class="bg-carbon text-crema">
+    <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6">
+      <div class="flex flex-col items-center gap-3 text-center" data-reveal>
+        <span class="text-xs font-semibold uppercase tracking-[0.22em] text-coral" data-i18n="nav.contratarme">{d.nav.contratarme}</span>
+        <h1 class="title-script text-4xl sm:text-5xl lg:text-6xl !text-blush" data-i18n="marcas.title">{d.marcas.title}</h1>
+        <Squiggle variant="underline" width="170" color="var(--color-coral)" class="mt-1" />
+      </div>
+      <p class="mx-auto mt-8 max-w-3xl text-center text-lg leading-relaxed text-crema/80" data-reveal data-i18n="marcas.text">{d.marcas.text}</p>
+
+      <div class="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+        {servicios.map((s) => (
+          <article class="rounded-3xl border border-crema/15 bg-crema/5 p-7 transition-transform duration-300 hover:-translate-y-1" data-reveal>
+            <h2 class="font-display text-xl italic text-coral" data-i18n={`marcas.servicios.${s}.t`}>{d.marcas.servicios[s].t}</h2>
+            <p class="mt-3 text-crema/75" data-i18n={`marcas.servicios.${s}.d`}>{d.marcas.servicios[s].d}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-14 flex flex-wrap items-center justify-center gap-4" data-reveal>
+        <a href={SITE.whatsappUrl} target="_blank" rel="noopener noreferrer" class="pill pill-solid" data-i18n="marcas.cta">{d.marcas.cta}</a>
+        <a href={`mailto:${SITE.email}`} class="pill pill-outline !border-crema/40 !text-crema" data-i18n="marcas.ctaEmail">{d.marcas.ctaEmail}</a>
+        <a href="/estadisticas/" class="pill pill-outline !border-crema/40 !text-crema" data-i18n="nav.estadisticas">{d.nav.estadisticas}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

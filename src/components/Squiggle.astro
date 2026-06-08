@@ -1,0 +1,37 @@
+---
+/** SVG decorativo "squiggle" animable (se dibuja al hacer scroll). */
+interface Props {
+  color?: string;
+  width?: string;
+  class?: string;
+  variant?: 'wave' | 'loop' | 'underline';
+}
+const { color = 'var(--color-coral)', width = '220', class: cls = '', variant = 'wave' } = Astro.props;
+
+const paths: Record<string, string> = {
+  wave: 'M2 18 C 30 2, 60 34, 90 18 S 150 2, 180 18 S 240 34, 268 18',
+  loop: 'M2 20 C 24 -6, 56 -6, 70 20 S 116 46, 138 20 S 196 -6, 218 20',
+  underline: 'M4 14 C 60 26, 120 2, 176 14 S 250 24, 296 12',
+};
+const viewBox: Record<string, string> = {
+  wave: '0 0 270 36',
+  loop: '0 0 220 40',
+  underline: '0 0 300 28',
+};
+---
+<svg
+  data-squiggle
+  class={cls}
+  width={width}
+  viewBox={viewBox[variant]}
+  fill="none"
+  aria-hidden="true"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d={paths[variant]}
+    stroke={color}
+    stroke-width="3"
+    stroke-linecap="round"
+  />
+</svg>

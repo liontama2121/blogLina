@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "title": "Lina Marcela Pérez — Digital entertainment journalist & content creator",
+    "description": "Portfolio of Lina Marcela Pérez Villegas: digital entertainment journalist and bilingual content creator (C1). Coverage, interviews, reels and brand work."
+  },
+  "nav": {
+    "inicio": "Home",
+    "quienSoy": "About me",
+    "contratarme": "Why hire me",
+    "entrevistas": "My interviews",
+    "logros": "Achievements",
+    "estadisticas": "Stats",
+    "perfil": "About",
+    "periodista": "Journalism",
+    "campo": "On the field",
+    "redaccion": "Writing",
+    "redes": "Social",
+    "marcas": "For brands",
+    "contacto": "Contact"
+  },
+  "home": {
+    "intro": "Digital entertainment journalist and content creator. Explore my work, my interviews and why I can add value to your media outlet or brand.",
+    "explorar": "Explore",
+    "cards": {
+      "quienSoy": "Get to know my story and bilingual profile.",
+      "contratarme": "What I offer to media and brands.",
+      "entrevistas": "Interviews, coverage and live work.",
+      "logros": "Media, festivals and collaborations.",
+      "estadisticas": "Audience and social numbers."
+    },
+    "ver": "View"
+  },
+  "logros": {
+    "title": "Achievements",
+    "text": "A track record that backs my work: national media, live coverage and collaborations with artists and brands.",
+    "mediosTitle": "Media I've published in",
+    "highlightsTitle": "Coverage & milestones",
+    "items": [
+      "Journalist, editor and scriptwriter for RCN Radio and the live show XYZ.",
+      "Bylines in La FM, La Mega and RCN Radio.",
+      "Coverage for RTVC — País de la Belleza (Santa Marta, El Rodadero).",
+      "Coverage of Premios Nuestra Tierra and MasterChef Celebrity.",
+      "Festival Cordillera coverage (Juan Luis Guerra, Miranda!).",
+      "Interviews with national and international artists (Rojo Carmesí, A La Mosca, Oki Doki, and more)."
+    ]
+  },
+  "estadisticas": {
+    "title": "Stats",
+    "text": "Real numbers from my community. An active audience that trusts my content.",
+    "labels": {
+      "seguidores": "Followers",
+      "likes": "Likes",
+      "vistas": "Avg. views",
+      "engagement": "Engagement",
+      "alcance": "Monthly reach",
+      "audiencia": "Audience",
+      "edad": "Main age",
+      "genero": "Gender",
+      "ciudades": "Top cities"
+    },
+    "nota": "Some figures are being updated."
+  },
+  "hero": {
+    "role": "Digital entertainment journalist · Content creator",
+    "badge": "English C1",
+    "ctaReel": "Watch showreel",
+    "ctaKit": "Résumé / CV",
+    "cvUrl": "/media/cv/CV-Lina-Marcela-Perez-EN.pdf",
+    "scroll": "Scroll"
+  },
+  "perfil": {
+    "title": "About me",
+    "bio": "Hi! I'm Lina Marcela Pérez, a digital journalist and content creator with experience in entertainment, fashion and beauty. My passion is to communicate and connect with people through authentic stories and innovative content. Through my work I've collaborated with many brands and artists, which has let me develop a strategic vision for creating high-impact content. My advanced command of English (C1) also lets me take my message to a wider audience."
+  },
+  "periodista": {
+    "title": "My work as a journalist",
+    "text": "Experience in digital content as a journalist, editor and script writer for RCN Radio and the live show XYZ. I tell stories that connect, with editorial judgment and a voice of my own on camera."
+  },
+  "campo": {
+    "title": "On the field",
+    "text": "Live event coverage: concerts, TV premieres, red carpets and festivals like Premios Nuestra Tierra and MasterChef Celebrity. I report from the scene, with energy and closeness.",
+    "empty": "Coming soon: live coverage clips. Add videos to public/media/video/."
+  },
+  "entrevistas": {
+    "title": "Interviews with artists",
+    "text": "I've interviewed national and international artists, creating authentic moments and memorable conversations."
+  },
+  "redaccion": {
+    "title": "My writing",
+    "text": "Every story reflects my commitment to quality journalism: rigor, clarity and a fresh take on entertainment.",
+    "cta": "See & discover"
+  },
+  "redes": {
+    "title": "My social media posts",
+    "text": "Fashion, lifestyle, hauls, GRWM and \"A day in my life\": relatable content that builds community."
+  },
+  "marcas": {
+    "title": "Let's work together",
+    "text": "Bilingual journalist and creator (C1), with experience in national media and a focus on entertainment, fashion and beauty. I bring your brand to camera with an authentic tone and strategy.",
+    "servicios": {
+      "host": { "t": "Event hosting", "d": "Live hosting and moderation, at ease on camera and in front of an audience." },
+      "ugc": { "t": "UGC & reels", "d": "Vertical content that converts: hooks, rhythm and a polished aesthetic." },
+      "redes": { "t": "Social media management", "d": "Strategy, calendar and community to grow with intention." },
+      "redaccion": { "t": "Content writing", "d": "Articles, scripts and copy with journalistic judgment." },
+      "entrevistas": { "t": "Interviews / coverage", "d": "Event coverage and interviews with artists and brands." }
+    },
+    "metricas": {
+      "title": "In numbers",
+      "ig": "Instagram",
+      "tiktok": "TikTok",
+      "alcance": "Monthly reach",
+      "placeholder": "—"
+    },
+    "cta": "Let's talk on WhatsApp",
+    "ctaEmail": "Send me an email"
+  },
+  "contacto": {
+    "title": "See you soon",
+    "subtitle": "XOXO",
+    "text": "Want to work together or get to know me better? I'm just one message away.",
+    "cta": "Message me on WhatsApp",
+    "email": "Email"
+  },
+  "social": {
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "whatsapp": "WhatsApp"
+  },
+  "footer": {
+    "made": "Made with love by JuanCode."
+  },
+  "reel": {
+    "play": "Play video",
+    "live": "LIVE"
+  }
+}

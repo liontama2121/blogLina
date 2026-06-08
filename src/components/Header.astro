@@ -1,0 +1,62 @@
+---
+import LangToggle from './LangToggle.astro';
+import { getDict, DEFAULT_LANG, type Lang } from '../i18n';
+interface Props { lang?: Lang; path?: string }
+const { lang = DEFAULT_LANG, path = '/' } = Astro.props;
+const d = getDict(lang);
+const links = [
+  { href: '/', key: 'nav.inicio', label: d.nav.inicio },
+  { href: '/quien-soy/', key: 'nav.quienSoy', label: d.nav.quienSoy },
+  { href: '/por-que-contratarme/', key: 'nav.contratarme', label: d.nav.contratarme },
+  { href: '/entrevistas/', key: 'nav.entrevistas', label: d.nav.entrevistas },
+  { href: '/logros/', key: 'nav.logros', label: d.nav.logros },
+  { href: '/estadisticas/', key: 'nav.estadisticas', label: d.nav.estadisticas },
+];
+const norm = (p: string) => (p.endsWith('/') ? p : p + '/');
+const isActive = (href: string) => norm(path) === norm(href);
+---
+<header class="sticky top-0 z-40 border-b border-dorado/20 bg-crema/85 backdrop-blur-md">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
+    <a href="/" class="font-display text-lg italic font-semibold text-rosa whitespace-nowrap">
+      Lina Marcela
+    </a>
+
+    <!-- Desktop / tablet -->
+    <ul class="hidden flex-1 items-center justify-center gap-4 overflow-x-auto px-2 text-sm font-medium text-gris-suave md:flex xl:gap-6">
+      {links.map((l) => (
+        <li>
+          <a
+            href={l.href}
+            class={`whitespace-nowrap transition-colors hover:text-rosa ${isActive(l.href) ? 'text-rosa font-semibold' : ''}`}
+            aria-current={isActive(l.href) ? 'page' : undefined}
+            data-i18n={l.key}
+          >{l.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <LangToggle />
+      <!-- Menú móvil -->
+      <details class="relative md:hidden">
+        <summary class="grid h-10 w-10 cursor-pointer list-none place-items-center rounded-full border border-dorado/40 bg-white/70 text-carbon [&::-webkit-details-marker]:hidden" aria-label="Menú">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" />
+          </svg>
+        </summary>
+        <ul class="absolute right-0 mt-2 w-56 rounded-2xl border border-dorado/30 bg-crema p-2 text-sm font-medium shadow-[var(--shadow-soft)]">
+          {links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                class={`block rounded-xl px-4 py-2.5 transition-colors hover:bg-blush ${isActive(l.href) ? 'bg-blush text-rosa font-semibold' : 'text-carbon'}`}
+                aria-current={isActive(l.href) ? 'page' : undefined}
+                data-i18n={l.key}
+              >{l.label}</a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </div>
+  </nav>
+</header>

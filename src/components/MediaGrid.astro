@@ -1,0 +1,35 @@
+---
+import ReelCard from './ReelCard.astro';
+type Item = { tipo: string; src: string; poster: string; titulo: string; ratio: string };
+/** Grilla responsive de reels (1→2→3 cols) a partir de items del manifiesto. */
+interface Props {
+  items: Item[];
+  live?: boolean;
+  emptyText?: string;
+  emptyKey?: string;
+  cols?: 2 | 3;
+}
+const { items, live = false, emptyText, emptyKey, cols = 3 } = Astro.props;
+const colCls = cols === 2 ? 'sm:grid-cols-2 lg:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
+---
+{items.length > 0 ? (
+  <div class={`grid grid-cols-1 ${colCls} gap-5 sm:gap-6`} data-reveal-group>
+    {items.map((it) => (
+      <ReelCard
+        src={it.src}
+        poster={it.poster}
+        titulo={it.titulo}
+        ratio={it.ratio}
+        live={live}
+      />
+    ))}
+  </div>
+) : (
+  emptyText && (
+    <p
+      class="rounded-2xl border border-dashed border-dorado/50 bg-blush/40 px-6 py-10 text-center text-gris-suave"
+      data-reveal
+      {...(emptyKey ? { 'data-i18n': emptyKey } : {})}
+    >{emptyText}</p>
+  )
+)}

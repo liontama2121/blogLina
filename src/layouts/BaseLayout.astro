@@ -1,0 +1,93 @@
+---
+import '../styles/global.css';
+import { DEFAULT_LANG, getDict, ALL_DICTS, type Lang } from '../i18n';
+import { SITE } from '../data/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloat from '../components/WhatsAppFloat.astro';
+
+interface Props {
+  lang?: Lang;
+  title?: string;        // título de página (se antepone al nombre)
+  description?: string;
+}
+const { lang = DEFAULT_LANG, title, description } = Astro.props;
+const d = getDict(lang);
+const pageTitle = title ? `${title} — ${SITE.nombre}` : d.meta.title;
+const pageDesc = description ?? d.meta.description;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(SITE.ogImage, Astro.site);
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang={lang} class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#FBF5EF" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'es' ? 'es_CO' : 'en_US'} />
+    <meta property="og:site_name" content={SITE.nombreCompleto} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDesc} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Fonts: Fraunces (display, itálica + optical) + Manrope (cuerpo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Diccionarios para el toggle ES/EN en cliente -->
+    <script type="application/json" id="i18n-data" set:html={JSON.stringify(ALL_DICTS)} />
+
+    <!-- quita no-js lo antes posible -->
+    <script is:inline>
+      document.documentElement.classList.remove('no-js');
+      try {
+        var saved = localStorage.getItem('lang');
+        if (saved === 'en' || saved === 'es') {
+          document.documentElement.setAttribute('lang', saved);
+        }
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <a
+      href="#top"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-rosa focus:px-4 focus:py-2 focus:text-white"
+    >Saltar al contenido</a>
+    <Header lang={lang} path={path} />
+    <main id="top">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <WhatsAppFloat />
+    <script>
+      import { initReveal } from '../scripts/reveal';
+      import { initI18n } from '../scripts/i18n-client';
+      import { initReels } from '../scripts/reel';
+      initI18n();
+      initReveal();
+      initReels();
+    </script>
+  </body>
+</html>

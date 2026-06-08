@@ -1,0 +1,8 @@
+# Medios descartados por superar 24 MiB (subir a R2 luego).
+# formato: ruta — duración — tamaño_final
+/media/tiktok/Download (12).mp4 — ?s — 43.1 MB
+/media/tiktok/Download.mp4 — ?s — 24.3 MB
+/media/video_entrevista/#PaisDeLaBellezaXRTVC - Desde Santa Marta los asistentes a la Gran #MuestraCulturalPaísdelaBelle.mp4 — ?s — 31.7 MB
+/media/video_entrevista/#PaísDeLaBellezaXRTVC 🇨🇴🔥 ¡Así se vivió la fiesta en la Playa de El Rodadero! 🌴El talento sa.mp4 — ?s — 35.9 MB
+/media/video_entrevista/Rojo Carmesí- Juan Guile habla de su papel en la novela#novela #labial #rojo #Estreno.mp4 — ?s — 30.5 MB
+/media/video_entrevista/🎤🐝 #PaísDeLaBellezaXRTVC - Minutos antes de subir a tarima, A La Mosca compartió su emoción y .mp4 — ?s — 26.4 MB

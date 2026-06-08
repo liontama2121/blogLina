@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Sistema de diseño — Portafolio Lina Marcela Pérez
+   Paleta: Vintage Garden + blush editorial
+   ============================================================ */
+@theme {
+  /* Colores de marca (Tailwind v4 expone util: bg-crema, text-rosa, etc.) */
+  --color-crema: #FBF5EF;
+  --color-blush: #F6E2E5;
+  --color-blush-2: #F3D9DD;
+  --color-rosa: #D98BA3;
+  --color-coral: #EF7C72;
+  --color-salvia: #9CAE8B;
+  --color-terracota: #C98A6B;
+  --color-dorado: #C8A45C;
+  --color-carbon: #2E2A28;
+  --color-gris-suave: #6B6560;
+
+  /* Tipografía */
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  /* Sombras suaves premium */
+  --shadow-soft: 0 10px 40px -12px rgba(46, 42, 40, 0.18);
+  --shadow-card: 0 14px 50px -18px rgba(217, 139, 163, 0.35);
+}
+
+/* ---- Base ---- */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  background-color: var(--color-crema);
+  color: var(--color-carbon);
+  font-family: var(--font-body);
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+/* ---- Utilidades de marca ---- */
+
+/* Título de sección estilo PDF: Fraunces itálica + rosa */
+.title-script {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  color: var(--color-rosa);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+/* Hairline dorada premium */
+.hairline {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-dorado) 18%,
+    var(--color-dorado) 82%,
+    transparent
+  );
+  opacity: 0.55;
+}
+
+/* Botón pill base */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  will-change: transform;
+}
+.pill:hover { transform: translateY(-2px); }
+
+.pill-solid {
+  background-color: var(--color-rosa);
+  color: #fff;
+  box-shadow: var(--shadow-card);
+}
+.pill-solid:hover { background-color: var(--color-coral); }
+
+.pill-outline {
+  border: 1px solid var(--color-dorado);
+  color: var(--color-carbon);
+  background-color: transparent;
+}
+.pill-outline:hover {
+  border-color: var(--color-rosa);
+  color: var(--color-rosa);
+}
+
+/* Reveal: estado inicial para animación con Anime.js */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+[data-hero-item] {
+  opacity: 0;
+  transform: translateY(28px);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-hero-item] { opacity: 1 !important; transform: none !important; }
+}
+.no-js [data-hero-item] { opacity: 1; transform: none; }
+.reveal-ready [data-reveal] { /* JS desactivado-safe override aplicado abajo */ }
+
+/* Si no hay JS o se prefiere reduced-motion, mostrar sin animar */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1 !important; transform: none !important; }
+}
+.no-js [data-reveal] { opacity: 1; transform: none; }
+
+/* Foco visible accesible */
+:focus-visible {
+  outline: 2px solid var(--color-rosa);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Badge LIVE */
+.badge-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #E0245E;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+}
+.badge-live::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 9999px;
+  background: #fff;
+  animation: pulse-live 1.4s ease-in-out infinite;
+}
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .badge-live::before { animation: none; }
+}
+
+/* Hover premium en tarjetas de reel (tras el reveal, el transform inline se limpia) */
+.reel {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+.reel:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px -20px rgba(217, 139, 163, 0.55);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reel:hover { transform: none; }
+}
+
+/* Corazón flotante decorativo */
+@keyframes float-heart {
+  0% { transform: translateY(0) rotate(-6deg); opacity: 0.9; }
+  50% { transform: translateY(-10px) rotate(6deg); opacity: 1; }
+  100% { transform: translateY(0) rotate(-6deg); opacity: 0.9; }
+}
+.float-heart { animation: float-heart 3.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .float-heart { animation: none; }
+}
