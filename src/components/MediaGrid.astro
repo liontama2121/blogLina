@@ -1,35 +1,28 @@
 ---
 import ReelCard from './ReelCard.astro';
-type Item = { tipo: string; src: string; poster: string; titulo: string; ratio: string };
-/** Grilla responsive de reels (1→2→3 cols) a partir de items del manifiesto. */
+import type { MediaItem } from '../data/media';
+/** Grilla responsive de reels (1 → 2 → 3/4 cols). */
 interface Props {
-  items: Item[];
+  items: MediaItem[];
   live?: boolean;
   emptyText?: string;
   emptyKey?: string;
-  cols?: 2 | 3;
+  cols?: 3 | 4;
 }
-const { items, live = false, emptyText, emptyKey, cols = 3 } = Astro.props;
-const colCls = cols === 2 ? 'sm:grid-cols-2 lg:grid-cols-3' : 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4';
+const { items, live = false, emptyText, emptyKey, cols = 4 } = Astro.props;
+const colCls = cols === 3 ? 'lg:grid-cols-3' : 'sm:grid-cols-3 lg:grid-cols-4';
 ---
 {items.length > 0 ? (
-  <div class={`grid grid-cols-1 ${colCls} gap-5 sm:gap-6`} data-reveal-group>
+  <div class={`grid grid-cols-2 ${colCls} gap-x-3 gap-y-8 sm:gap-x-6 sm:gap-y-10`} data-reveal-group>
     {items.map((it) => (
-      <ReelCard
-        src={it.src}
-        poster={it.poster}
-        titulo={it.titulo}
-        ratio={it.ratio}
-        live={live}
-      />
+      <ReelCard src={it.src} poster={it.poster} titulo={it.titulo} ratio={it.ratio} live={live} />
     ))}
   </div>
 ) : (
   emptyText && (
-    <p
-      class="rounded-2xl border border-dashed border-dorado/50 bg-blush/40 px-6 py-10 text-center text-gris-suave"
-      data-reveal
-      {...(emptyKey ? { 'data-i18n': emptyKey } : {})}
-    >{emptyText}</p>
+    <div class="flex flex-col items-start gap-3 border sm:flex-row sm:items-center sm:gap-4 border-dashed border-tinta/25 bg-hueso/60 px-6 py-8" data-reveal>
+      <span class="badge-live shrink-0" data-i18n="reel.live">EN VIVO</span>
+      <p class="text-tinta-suave" {...(emptyKey ? { 'data-i18n': emptyKey } : {})}>{emptyText}</p>
+    </div>
   )
 )}

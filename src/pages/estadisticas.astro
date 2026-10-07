@@ -1,94 +1,97 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageMasthead from '../components/PageMasthead.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import MediaGrid from '../components/MediaGrid.astro';
 import { getDict, DEFAULT_LANG } from '../i18n';
 import { STATS, SITE } from '../data/site';
-import media from '../data/media.json';
+import { byTipo } from '../data/media';
 const lang = DEFAULT_LANG;
 const d = getDict(lang);
 const L = d.estadisticas.labels;
-type Item = { tipo: string; src: string; poster: string; titulo: string; ratio: string };
-const tiktoks = (media as Item[]).filter((m) => m.tipo === 'tiktok');
-const val = (x: string) => (x && x.length ? x : '—');
+const tiktoks = byTipo('tiktok');
 
-const tiktokStats = [
-  { k: 'seguidores', label: L.seguidores, value: STATS.tiktok.seguidores },
-  { k: 'likes', label: L.likes, value: STATS.tiktok.likes },
-  { k: 'vistas', label: L.vistas, value: STATS.tiktok.vistas_promedio },
-  { k: 'engagement', label: L.engagement, value: STATS.tiktok.engagement },
+type Stat = { k: keyof typeof L; value: string };
+const grupos = [
+  {
+    nombre: 'TikTok',
+    handle: `@${STATS.tiktok.handle}`,
+    href: SITE.tiktokUrl,
+    stats: [
+      { k: 'seguidores', value: STATS.tiktok.seguidores },
+      { k: 'likes', value: STATS.tiktok.likes },
+      { k: 'vistas', value: STATS.tiktok.vistas_promedio },
+      { k: 'engagement', value: STATS.tiktok.engagement },
+    ] as Stat[],
+  },
+  {
+    nombre: 'Instagram',
+    handle: `@${STATS.instagram.handle}`,
+    href: SITE.instagramUrl,
+    stats: [
+      { k: 'seguidores', value: STATS.instagram.seguidores },
+      { k: 'alcance', value: STATS.instagram.alcance_mensual },
+      { k: 'engagement', value: STATS.instagram.engagement },
+    ] as Stat[],
+  },
+  {
+    nombre: L.audiencia,
+    nombreKey: 'estadisticas.labels.audiencia',
+    stats: [
+      { k: 'edad', value: STATS.audiencia.edad_principal },
+      { k: 'genero', value: STATS.audiencia.genero },
+      { k: 'ciudades', value: STATS.audiencia.ciudades },
+    ] as Stat[],
+  },
 ];
-const igStats = [
-  { k: 'seguidores', label: L.seguidores, value: STATS.instagram.seguidores },
-  { k: 'alcance', label: L.alcance, value: STATS.instagram.alcance_mensual },
-  { k: 'engagement', label: L.engagement, value: STATS.instagram.engagement },
-];
-const audiencia = [
-  { k: 'edad', label: L.edad, value: STATS.audiencia.edad_principal },
-  { k: 'genero', label: L.genero, value: STATS.audiencia.genero },
-  { k: 'ciudades', label: L.ciudades, value: STATS.audiencia.ciudades },
-];
+const filled = (s: Stat[]) => s.filter((x) => x.value);
+const pending = (s: Stat[]) => s.filter((x) => !x.value);
+const fields = ['bg-rosa', 'bg-hueso ring-1 ring-tinta/10', 'bg-hueso-2'];
 ---
-<BaseLayout lang={lang} title={d.nav.estadisticas} description={d.estadisticas.text}>
-  <section class="bg-carbon text-crema">
-    <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6">
-      <div class="flex flex-col items-center gap-3 text-center" data-reveal>
-        <span class="text-xs font-semibold uppercase tracking-[0.22em] text-coral" data-i18n="nav.estadisticas">{d.nav.estadisticas}</span>
-        <h1 class="title-script text-4xl sm:text-5xl lg:text-6xl !text-blush" data-i18n="estadisticas.title">{d.estadisticas.title}</h1>
-      </div>
-      <p class="mx-auto mt-6 max-w-2xl text-center text-lg text-crema/80" data-reveal data-i18n="estadisticas.text">{d.estadisticas.text}</p>
+<BaseLayout lang={lang} title={d.estadisticas.title} description={d.estadisticas.text}>
+  <PageMasthead title={d.estadisticas.title} titleKey="estadisticas.title" lead={d.estadisticas.text} leadKey="estadisticas.text" field="rosa" />
 
-      <!-- TikTok -->
-      <div class="mt-14 flex items-center justify-center gap-2 text-coral" data-reveal>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.5 3c.3 2 1.6 3.6 3.5 3.9v2.5c-1.3.1-2.6-.3-3.7-1v5.9c0 3.2-2.6 5.7-5.8 5.4A5.4 5.4 0 0 1 5.6 14a5.4 5.4 0 0 1 6.3-4.6v2.7a2.7 2.7 0 1 0 1.9 2.6V3h2.7Z"/></svg>
-        <a href={SITE.tiktokUrl} target="_blank" rel="noopener noreferrer" class="font-display text-xl italic hover:underline">@{STATS.tiktok.handle}</a>
-      </div>
-      <div class="mt-6 grid grid-cols-2 gap-5 lg:grid-cols-4" data-reveal-group>
-        {tiktokStats.map((s) => (
-          <div class="rounded-3xl border border-dorado/30 bg-crema/5 p-8 text-center" data-reveal>
-            <div class="font-display text-4xl text-blush sm:text-5xl">{val(s.value)}</div>
-            <div class="mt-2 text-sm uppercase tracking-wide text-crema/60" data-i18n={`estadisticas.labels.${s.k}`}>{s.label}</div>
-          </div>
-        ))}
-      </div>
+  <section class="bg-hueso">
+    <div class="mx-auto grid max-w-7xl gap-4 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:py-24" data-reveal-group>
+      {grupos.map((g, gi) => (
+        <article class={`flex flex-col gap-8 p-7 lg:p-10 ${fields[gi]} ${gi === 0 ? 'lg:col-span-12' : 'lg:col-span-6'}`} data-reveal>
+          <header class="flex flex-wrap items-baseline justify-between gap-3">
+            <h2 class="display-md text-tinta" {...(g.nombreKey ? { 'data-i18n': g.nombreKey } : {})}>{g.nombre}</h2>
+            {g.href && (
+              <a href={g.href} target="_blank" rel="noopener noreferrer" class="link-ed font-bold text-rosa-ink">{g.handle}</a>
+            )}
+          </header>
 
-      <!-- Instagram -->
-      <div class="mt-14 flex items-center justify-center gap-2 text-rosa" data-reveal>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-        <a href={SITE.instagramUrl} target="_blank" rel="noopener noreferrer" class="font-display text-xl italic hover:underline">@{STATS.instagram.handle}</a>
-      </div>
-      <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3" data-reveal-group>
-        {igStats.map((s) => (
-          <div class="rounded-3xl border border-dorado/30 bg-crema/5 p-8 text-center" data-reveal>
-            <div class="font-display text-4xl text-blush sm:text-5xl">{val(s.value)}</div>
-            <div class="mt-2 text-sm uppercase tracking-wide text-crema/60" data-i18n={`estadisticas.labels.${s.k}`}>{s.label}</div>
-          </div>
-        ))}
-      </div>
+          {filled(g.stats).length > 0 && (
+            <dl class="grid grid-cols-2 gap-6 sm:gap-10">
+              {filled(g.stats).map((s) => (
+                <div class="flex flex-col gap-1">
+                  <dt class="order-2 font-semibold text-tinta-suave" data-i18n={`estadisticas.labels.${s.k}`}>{L[s.k]}</dt>
+                  <dd class="order-1 font-display text-6xl font-bold tracking-tight text-tinta sm:text-8xl">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
 
-      <!-- Audiencia -->
-      <h2 class="mt-14 text-center font-display text-2xl italic text-coral" data-reveal data-i18n="estadisticas.labels.audiencia">{L.audiencia}</h2>
-      <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-3" data-reveal-group>
-        {audiencia.map((s) => (
-          <div class="rounded-3xl border border-crema/15 bg-crema/5 p-7 text-center" data-reveal>
-            <div class="text-sm uppercase tracking-wide text-crema/60" data-i18n={`estadisticas.labels.${s.k}`}>{s.label}</div>
-            <div class="mt-2 font-display text-2xl text-blush">{val(s.value)}</div>
-          </div>
-        ))}
-      </div>
-
-      <p class="mt-8 text-center text-xs text-crema/40" data-reveal data-i18n="estadisticas.nota">{d.estadisticas.nota}</p>
+          {pending(g.stats).length > 0 && (
+            <ul class="flex flex-wrap gap-2">
+              {pending(g.stats).map((s) => (
+                <li class="inline-flex items-center gap-2 rounded-full border border-tinta/15 px-4 py-2 text-sm">
+                  <span class="font-semibold text-tinta" data-i18n={`estadisticas.labels.${s.k}`}>{L[s.k]}</span>
+                  <span class="text-tinta-suave" data-i18n="estadisticas.pendiente">{d.estadisticas.pendiente}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </article>
+      ))}
+      <p class="text-sm text-tinta-suave lg:col-span-12" data-reveal data-i18n="estadisticas.nota">{d.estadisticas.nota}</p>
     </div>
   </section>
 
-  <!-- Publicaciones (reels TikTok) -->
-  <section class="relative overflow-hidden bg-blush/50">
-    <div class="float-heart pointer-events-none absolute right-8 top-12 text-coral/70">
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9C.9 9.2 2.3 6 5.3 6c1.8 0 3 .9 3.7 2 .7-1.1 1.9-2 3.7-2 3 0 4.4 3.2 3 6-2.2 4.4-9.7 9-9.7 9Z"/></svg>
-    </div>
-    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-      <SectionTitle i18nKey="redes.title" text={d.redes.title} />
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-gris-suave" data-reveal data-i18n="redes.text">{d.redes.text}</p>
+  <section class="bg-rosa-soft">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-24">
+      <SectionTitle i18nKey="redes.title" text={d.redes.title} lead={d.redes.text} leadKey="redes.text" />
       <div class="mt-12"><MediaGrid items={tiktoks} /></div>
     </div>
   </section>

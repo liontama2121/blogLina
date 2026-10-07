@@ -69,7 +69,7 @@ export function initReveal() {
   setupHero(false);
 }
 
-/** Dibuja los squiggles SVG (stroke-dashoffset) al hacer scroll. */
+/** Dibuja trazos SVG [data-squiggle] (stroke-dashoffset) al hacer scroll. */
 function setupSquiggles(instant: boolean) {
   const paths = Array.from(document.querySelectorAll<SVGPathElement>('[data-squiggle] path'));
   for (const p of paths) {
@@ -105,6 +105,11 @@ function setupHero(instant: boolean) {
   if (!hero) return;
   const items = hero.querySelectorAll<HTMLElement>('[data-hero-item]');
   if (instant) {
+    // Movimiento reducido: el video de portada queda quieto en su póster.
+    hero.querySelectorAll<HTMLVideoElement>('[data-hero-video]').forEach((v) => {
+      v.removeAttribute('autoplay');
+      v.pause();
+    });
     items.forEach((i) => {
       i.style.opacity = '1';
       i.style.transform = 'none';

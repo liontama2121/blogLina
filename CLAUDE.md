@@ -58,14 +58,14 @@ blogLina/
 │   └── medios-descartados.txt        # log de videos excluidos por tamaño (subir a R2)
 ├── src/
 │   ├── components/   # ReelCard, MediaGrid, PhotoGallery, MediaLogoCard,
-│   │                 # SectionTitle, Squiggle, WhatsAppFloat, LangToggle,
-│   │                 # SocialLinks, Header
-│   ├── data/         # site.ts (constantes) + media.json (generado)
+│   │                 # SectionTitle, PageMasthead, ContactClose, InterviewPlayer, WhatsAppFloat,
+│   │                 # LangToggle, SocialLinks, Header, Footer
+│   ├── data/         # site.ts (constantes), media.ts (helpers) + media.json (generado)
 │   ├── i18n/         # es.json, en.json, index.ts
 │   ├── layouts/      # BaseLayout.astro (head, SEO, fonts, scripts cliente)
 │   ├── pages/        # multi-página: index, quien-soy, por-que-contratarme,
 │   │                 #              entrevistas, logros, estadisticas
-│   ├── scripts/      # reveal.ts, reel.ts, i18n-client.ts (cliente)
+│   ├── scripts/      # reveal.ts, reel.ts, player.ts, i18n-client.ts (cliente)
 │   └── styles/       # global.css (tokens + utilidades)
 ├── _descartados-media/   # videos >24MB movidos aquí (NO se despliegan)
 ├── astro.config.mjs
@@ -75,26 +75,30 @@ blogLina/
 
 ---
 
-## Paleta (Vintage Garden + blush editorial)
+## Diseño (tabloide editorial, solo rosa + blanco hueso)
 
-Definida en `src/styles/global.css` como `@theme` → genera utilidades Tailwind
-(`bg-crema`, `text-rosa`, `border-dorado`, etc.).
+Definido en `src/styles/global.css` como `@theme` → utilidades Tailwind (`bg-rosa`, `text-rosa-ink`, etc.).
+**Solo dos familias de color**: rosa (de pastel a tinta profunda) y blanco hueso. El texto oscuro
+(`tinta`) es el rosa más oscuro. No introducir otros tonos.
 
 | Token | Hex | Uso |
 |---|---|---|
-| `crema` | `#FBF5EF` | fondo base |
-| `blush` | `#F6E2E5` | fondos de sección suaves |
-| `blush-2` | `#F3D9DD` | tarjetas / bloques |
-| `rosa` | `#D98BA3` | títulos script, acentos |
-| `coral` | `#EF7C72` | squiggles, hover |
-| `salvia` | `#9CAE8B` | acento secundario |
-| `terracota` | `#C98A6B` | acento cálido puntual |
-| `dorado` | `#C8A45C` | hairlines / divisores |
-| `carbon` | `#2E2A28` | texto principal |
-| `gris-suave` | `#6B6560` | texto secundario |
+| `hueso` / `hueso-2` | `#F5EFE6` / `#EBE3D6` | fondo base / bloques |
+| `rosa-soft` / `rosa` / `rosa-deep` | `#FAE3E9` / `#F4C3D0` / `#E896AE` | campos rosa |
+| `rosa-ink` | `#8E2C4D` | acentos, links (AA) |
+| `tinta` / `tinta-suave` | `#2C1219` / `#5E4148` | texto, botón primario, banda de números |
 
-Tipografía: **Fraunces** (display, itálica + optical sizing) y **Manrope** (cuerpo),
-cargadas desde Google Fonts en `BaseLayout.astro`.
+- Tipografía: **Bricolage Grotesque** condensada (eje `wdth` 75, mayúsculas) para títulos
+  (`.display-mega/xl/lg/md`) + **Hanken Grotesk** para cuerpo.
+- **Duotono**: envolver fotos/videos en `.duo` → se ven en rosa y recuperan color al hover
+  (videos: al reproducir, clase `.playing`). Así cualquier foto respeta la paleta.
+- Firmas: polaroids (`.polaroid`, var `--rot`), reproductor de entrevistas (`InterviewPlayer` +
+  `scripts/player.ts`), credencial de prensa en el cierre (`ContactClose`), índice tipográfico,
+  una sola marquesina de logos.
+- Clases de componente en `@layer components` (si salen de ahí pisan utilidades como `hidden`).
+- Forma: bloques y medios rectos; botones y chips en pill.
+- Entrevistas destacadas: `DESTACADAS` en `site.ts` + títulos en `destacadas.items` (i18n).
+  Fotos: `PHOTOS` y `ARTISTAS` en `site.ts`. Helpers de medios: `src/data/media.ts`.
 
 ---
 
@@ -111,7 +115,9 @@ cargadas desde Google Fonts en `BaseLayout.astro`.
 ## Cómo agregar nuevos videos / fotos
 
 1. Copia los archivos a la carpeta correcta dentro de `public/media/`
-   (`tiktok`, `video_entrevista`, `video`, `image`, `logos`). **No renombres** si no quieres.
+   (`tiktok`, `video_entrevista`, `video`, `image`, `logos`).
+   **Nombres solo ASCII** (letras, números, `-`, `_`, espacios): sin tildes, emojis ni `#`.
+   Con esos caracteres `astro preview` (y a veces Cloudflare) responde 404 y el video no carga.
 2. `npm run media:optimize` (comprime y genera posters si tienes ffmpeg; descarta >24 MB).
 3. `npm run media:manifest` (o simplemente `npm run build`).
 4. Edita `titulo` en `src/data/media.json` si quieres títulos bonitos (por defecto se infiere
@@ -167,14 +173,13 @@ Ubicados en `src/data/site.ts` salvo indicación:
 - **Email** de Lina → `SITE.email` (hoy `hola@linamarcelaperez.com`).
 - **Media kit / CV (PDF)** → pon el PDF en `public/` y ajusta `SITE.mediaKitUrl`.
 - **Imagen OG** → pon `public/og-cover.jpg` (1200×630) o cambia `SITE.ogImage`.
-- **Foto de portada (hero)** → `HERO_IMAGE` en `src/pages/index.astro`
-  (hoy `/media/image/463824637_...n..jpg`). Cámbiala por la mejor.
+- **Fotos de portada** → `PHOTOS` en `src/data/site.ts` (póster del video hero, retrato, set, etc.).
 - **URL de RTVC** → `MEDIOS` en `site.ts` (`url: '#'`, `placeholder: true`).
 - **Mapeo logo↔medio** → en `logos/` los 3 archivos `image*.png` se asignan **por orden** a
   La FM / La Mega / RCN. Verifica que cada logo corresponde a su medio; si no, renombra los
   archivos (ej. `lafm.png`, `lamega.png`, `rcn.png`) — el script casa por nombre.
 - **Estadísticas** → `STATS` en `src/data/site.ts`. Reales: TikTok 5.3K seguidores, 145K likes.
-  Vacíos (vistas, engagement, IG, audiencia) se muestran como `—`; complétalos ahí.
+  Vacíos (vistas, engagement, IG, audiencia) se muestran como "En actualización"; complétalos ahí.
 - **TikTok** → cuenta confirmada `@linamarcelavi` (`SITE.tiktokUrl` + `STATS.tiktok.handle`).
 - **Dominio** → `site` en `astro.config.mjs` y la URL del sitemap en `robots.txt`.
 - **Programa en vivo "XYZ"** → confirmar nombre real (aparece en `i18n/*.json`, clave `periodista.text`).

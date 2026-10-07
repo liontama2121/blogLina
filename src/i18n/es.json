@@ -1,52 +1,107 @@
 {
   "meta": {
-    "title": "Lina Marcela Pérez — Periodista digital de entretenimiento & creadora de contenido",
-    "description": "Portafolio de Lina Marcela Pérez Villegas: periodista digital de entretenimiento, creadora de contenido bilingüe (C1). Cobertura, entrevistas, reels y trabajo con marcas."
+    "title": "Lina Marcela Pérez | Periodista digital de entretenimiento",
+    "description": "Portafolio de Lina Marcela Pérez Villegas: periodista digital de entretenimiento y creadora de contenido bilingüe (inglés C1). Entrevistas, cobertura en vivo y trabajo con medios y marcas."
   },
   "nav": {
     "inicio": "Inicio",
     "quienSoy": "Quién soy",
     "contratarme": "Por qué contratarme",
-    "entrevistas": "Mis entrevistas",
+    "entrevistas": "Entrevistas",
     "logros": "Logros",
     "estadisticas": "Estadísticas",
-    "perfil": "Perfil",
-    "periodista": "Periodista",
-    "campo": "Campo",
-    "redaccion": "Redacción",
-    "redes": "Redes",
-    "marcas": "Para marcas",
-    "contacto": "Contacto"
+    "cv": "Descargar CV",
+    "menu": "Abrir menú",
+    "skip": "Saltar al contenido"
+  },
+  "hero": {
+    "sub": "Periodista de entretenimiento. Entrevistas, cobertura en vivo y contenido digital para RCN Radio, La FM y La Mega. Inglés C1.",
+    "ctaPrimary": "Ver entrevistas",
+    "ctaCv": "Descargar CV",
+    "cvUrl": "/media/cv/CV-Lina-Marcela-Perez-ES.pdf",
+    "videoLabel": "Video de presentación de Lina Marcela Pérez"
   },
   "home": {
-    "intro": "Periodista digital de entretenimiento y creadora de contenido. Explora mi trabajo, mis entrevistas y por qué puedo aportar a tu medio o tu marca.",
-    "explorar": "Explora",
+    "medios": "Ha publicado en",
+    "destacadasTitle": "Entrevistas frente a cámara",
+    "verTodas": "Ver todas las entrevistas",
     "cards": {
-      "quienSoy": "Conoce mi historia y mi perfil bilingüe.",
-      "contratarme": "Qué ofrezco a medios y marcas.",
-      "entrevistas": "Entrevistas, cobertura y trabajo en vivo.",
-      "logros": "Medios, festivales y colaboraciones.",
-      "estadisticas": "Audiencia y números en redes."
+      "quienSoy": "Su historia, su perfil bilingüe y su foco editorial.",
+      "contratarme": "Qué ofrece a medios y marcas.",
+      "entrevistas": "Entrevistas, cobertura en vivo y fotos con artistas.",
+      "logros": "Medios nacionales, festivales y coberturas.",
+      "estadisticas": "Audiencia y números reales en redes."
     },
-    "ver": "Ver"
+    "cierreTitle": "¿Hablamos?",
+    "cierreText": "Disponible para medios, coberturas en vivo y proyectos con marcas."
+  },
+  "destacadas": {
+    "items": [
+      "Carlos Báez y su papel en Rojo Carmesí",
+      "Oki Doki y el rock, una mezcla inesperada",
+      "Theatron: por qué se acabó la barra libre",
+      "Diana Dieppa y la sorpresa en la familia Vega Dieppa",
+      "Festival Cordillera: cuánto se gastó en dólares",
+      "Festival Cordillera, día uno"
+    ]
+  },
+  "perfil": {
+    "title": "Quién soy",
+    "lead": "Periodista digital y creadora de contenido. Entretenimiento, moda y belleza, en español e inglés.",
+    "bio": "¡Hola! Soy Lina Marcela Pérez, periodista digital y creadora de contenido con experiencia en entretenimiento, moda y belleza. Mi pasión es comunicar y conectar con las personas a través de historias auténticas y contenido innovador. Gracias a mi trabajo, he colaborado con diversas marcas y artistas, lo que me ha permitido desarrollar una visión estratégica para la creación de contenido impactante. Además, mi manejo avanzado del inglés (C1) me permite llevar mi mensaje a una audiencia más amplia.",
+    "facts": {
+      "idioma": {
+        "t": "Inglés C1",
+        "d": "Entrevista y presenta en español e inglés."
+      },
+      "medios": {
+        "t": "Medios nacionales",
+        "d": "RCN Radio, La FM, La Mega y RTVC."
+      },
+      "foco": {
+        "t": "Entretenimiento",
+        "d": "Música, televisión, moda y belleza."
+      }
+    },
+    "cvEs": "CV en español",
+    "cvEn": "CV en inglés"
+  },
+  "periodista": {
+    "title": "Mi trabajo como periodista",
+    "text": "Periodista, editora y guionista de contenidos digitales para RCN Radio y el programa en vivo XYZ. Cuento historias que conectan, con criterio editorial y voz propia frente a cámara."
+  },
+  "campo": {
+    "title": "Trabajo de campo",
+    "text": "Conciertos, estrenos de TV, alfombras rojas y festivales como Premios Nuestra Tierra y MasterChef Celebrity. Reporto desde el lugar.",
+    "empty": "Muy pronto: clips de cobertura en vivo."
+  },
+  "entrevistas": {
+    "title": "Con artistas",
+    "text": "Artistas nacionales e internacionales, en set, en camerino y en la alfombra."
+  },
+  "redes": {
+    "title": "Publicaciones en redes",
+    "text": "Moda, lifestyle, hauls, GRWM y \"A day in my life\": contenido cercano que genera comunidad."
   },
   "logros": {
     "title": "Logros",
-    "text": "Trayectoria que respalda mi trabajo: medios nacionales, coberturas en vivo y colaboraciones con artistas y marcas.",
-    "mediosTitle": "Medios donde he publicado",
-    "highlightsTitle": "Coberturas y hitos",
+    "text": "Medios nacionales, coberturas en vivo y colaboraciones con artistas y marcas.",
+    "mediosTitle": "Medios donde ha publicado",
+    "highlightsTitle": "Coberturas e hitos",
+    "verPerfil": "Ver publicaciones",
+    "pendiente": "Enlace pendiente",
     "items": [
       "Periodista, editora y guionista para RCN Radio y el programa en vivo XYZ.",
       "Publicaciones en La FM, La Mega y RCN Radio.",
-      "Cobertura para RTVC — País de la Belleza (Santa Marta, El Rodadero).",
+      "Cobertura para RTVC en País de la Belleza (Santa Marta, El Rodadero).",
       "Cubrimiento de Premios Nuestra Tierra y MasterChef Celebrity.",
       "Cobertura del Festival Cordillera (Juan Luis Guerra, Miranda!).",
-      "Entrevistas a artistas nacionales e internacionales (Rojo Carmesí, A La Mosca, Oki Doki, entre otros)."
+      "Entrevistas a artistas nacionales e internacionales: Rojo Carmesí, A La Mosca, Oki Doki y más."
     ]
   },
   "estadisticas": {
     "title": "Estadísticas",
-    "text": "Números reales de mi comunidad. Una audiencia activa que confía en mi contenido.",
+    "text": "Números reales de su comunidad en redes.",
     "labels": {
       "seguidores": "Seguidores",
       "likes": "Likes",
@@ -58,73 +113,39 @@
       "genero": "Género",
       "ciudades": "Ciudades top"
     },
-    "nota": "Algunos datos están en actualización."
-  },
-  "hero": {
-    "role": "Periodista digital de entretenimiento · Creadora de contenido",
-    "badge": "Inglés C1",
-    "ctaReel": "Ver showreel",
-    "ctaKit": "Hoja de vida / CV",
-    "cvUrl": "/media/cv/CV-Lina-Marcela-Perez-ES.pdf",
-    "scroll": "Desliza"
-  },
-  "perfil": {
-    "title": "Mi perfil",
-    "bio": "¡Hola! Soy Lina Marcela Pérez, periodista digital y creadora de contenido con experiencia en entretenimiento, moda y belleza. Mi pasión es comunicar y conectar con las personas a través de historias auténticas y contenido innovador. Gracias a mi trabajo, he colaborado con diversas marcas y artistas, lo que me ha permitido desarrollar una visión estratégica para la creación de contenido impactante. Además, mi manejo avanzado del inglés (C1) me permite llevar mi mensaje a una audiencia más amplia."
-  },
-  "periodista": {
-    "title": "Mi trabajo como periodista",
-    "text": "Experiencia en contenidos digitales como periodista, editora y desarrolladora de guiones para RCN Radio y el programa en vivo XYZ. Cuento historias que conectan, con criterio editorial y voz propia frente a cámara."
-  },
-  "campo": {
-    "title": "Mi trabajo de campo",
-    "text": "Cobertura de eventos en vivo: conciertos, estrenos de TV, alfombras rojas y festivales como Premios Nuestra Tierra y MasterChef Celebrity. Reporto desde el lugar, con energía y cercanía.",
-    "empty": "Próximamente: clips de cobertura en vivo. Agrega videos en public/media/video/."
-  },
-  "entrevistas": {
-    "title": "Entrevistas con artistas",
-    "text": "He entrevistado a artistas nacionales e internacionales, creando momentos auténticos y conversaciones memorables."
-  },
-  "redaccion": {
-    "title": "Mi trabajo de redacción",
-    "text": "Cada publicación refleja mi compromiso con el periodismo de calidad: rigor, claridad y una mirada fresca del entretenimiento.",
-    "cta": "Ver y descubre"
-  },
-  "redes": {
-    "title": "Mis publicaciones en redes sociales",
-    "text": "Moda, lifestyle, hauls, GRWM y \"A day in my life\": contenido cercano que genera comunidad."
+    "pendiente": "En actualización",
+    "nota": "Los datos sin cifra se están actualizando."
   },
   "marcas": {
-    "title": "Trabajemos juntos",
-    "text": "Periodista y creadora bilingüe (C1), con experiencia en medios nacionales y foco en entretenimiento, moda y belleza. Llevo tu marca a la cámara con tono auténtico y estrategia.",
+    "title": "Por qué contratarme",
+    "text": "Periodista y creadora bilingüe (C1), con experiencia en medios nacionales y foco en entretenimiento, moda y belleza. Llevo tu marca o tu medio a cámara con tono auténtico y estrategia.",
+    "serviciosTitle": "Lo que hago",
     "servicios": {
-      "host": { "t": "Presentación / host de eventos", "d": "Conducción en vivo y moderación con soltura frente a cámara y público." },
-      "ugc": { "t": "UGC & reels", "d": "Contenido vertical que convierte: hooks, ritmo y estética cuidada." },
-      "redes": { "t": "Manejo de redes", "d": "Estrategia, calendario y comunidad para crecer con intención." },
-      "redaccion": { "t": "Redacción de contenidos", "d": "Notas, guiones y copys con criterio periodístico." },
-      "entrevistas": { "t": "Entrevistas / cubrimientos", "d": "Cobertura de eventos y entrevistas con artistas y marcas." }
-    },
-    "metricas": {
-      "title": "En números",
-      "ig": "Instagram",
-      "tiktok": "TikTok",
-      "alcance": "Alcance mensual",
-      "placeholder": "—"
-    },
-    "cta": "Hablemos por WhatsApp",
-    "ctaEmail": "Escríbeme un correo"
+      "host": {
+        "t": "Presentación y host de eventos",
+        "d": "Conducción en vivo y moderación, con soltura frente a cámara y público."
+      },
+      "ugc": {
+        "t": "UGC y reels",
+        "d": "Contenido vertical con hook, ritmo y estética cuidada."
+      },
+      "redes": {
+        "t": "Manejo de redes",
+        "d": "Estrategia, calendario y comunidad para crecer con intención."
+      },
+      "redaccion": {
+        "t": "Redacción de contenidos",
+        "d": "Notas, guiones y copys con criterio periodístico."
+      },
+      "entrevistas": {
+        "t": "Entrevistas y cubrimientos",
+        "d": "Cobertura de eventos y entrevistas con artistas y marcas."
+      }
+    }
   },
   "contacto": {
-    "title": "See you soon",
-    "subtitle": "XOXO",
-    "text": "¿Trabajamos juntos o quieres saber más de mí? Estoy a un mensaje de distancia.",
-    "cta": "Escríbeme por WhatsApp",
-    "email": "Email"
-  },
-  "social": {
-    "instagram": "Instagram",
-    "tiktok": "TikTok",
-    "whatsapp": "WhatsApp"
+    "whatsapp": "Escribir por WhatsApp",
+    "email": "Enviar correo"
   },
   "footer": {
     "made": "Hecho con amor por JuanCode."
@@ -132,5 +153,21 @@
   "reel": {
     "play": "Reproducir video",
     "live": "EN VIVO"
+  },
+  "numeros": {
+    "seguidores": "Seguidores en TikTok",
+    "likes": "Likes en TikTok",
+    "medios": "Medios nacionales",
+    "ingles": "Nivel de inglés"
+  },
+  "pase": {
+    "prensa": "Prensa",
+    "rol": "Periodista de entretenimiento",
+    "idioma": "Idiomas",
+    "temporada": "Temporada"
+  },
+  "artistas": {
+    "title": "Con artistas",
+    "link": "Ver la galería completa"
   }
 }

@@ -13,7 +13,7 @@ interface Props {
 }
 const { lang = DEFAULT_LANG, title, description } = Astro.props;
 const d = getDict(lang);
-const pageTitle = title ? `${title} — ${SITE.nombre}` : d.meta.title;
+const pageTitle = title ? `${title} | ${SITE.nombre}` : d.meta.title;
 const pageDesc = description ?? d.meta.description;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(SITE.ogImage, Astro.site);
@@ -31,7 +31,7 @@ const path = Astro.url.pathname;
     <title>{pageTitle}</title>
     <meta name="description" content={pageDesc} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#FBF5EF" />
+    <meta name="theme-color" content="#F4C3D0" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -48,11 +48,11 @@ const path = Astro.url.pathname;
     <meta name="twitter:description" content={pageDesc} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Fonts: Fraunces (display, itálica + optical) + Manrope (cuerpo) -->
+    <!-- Fonts: Bricolage Grotesque (display) + Hanken Grotesk (cuerpo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..600&family=Manrope:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Hanken+Grotesk:ital,wght@0,400..700;1,400..500&display=swap"
       rel="stylesheet"
     />
 
@@ -73,8 +73,9 @@ const path = Astro.url.pathname;
   <body>
     <a
       href="#top"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-rosa focus:px-4 focus:py-2 focus:text-white"
-    >Saltar al contenido</a>
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-full focus:bg-tinta focus:px-4 focus:py-2 focus:text-hueso"
+      data-i18n="nav.skip"
+    >{d.nav.skip}</a>
     <Header lang={lang} path={path} />
     <main id="top">
       <slot />
@@ -85,9 +86,11 @@ const path = Astro.url.pathname;
       import { initReveal } from '../scripts/reveal';
       import { initI18n } from '../scripts/i18n-client';
       import { initReels } from '../scripts/reel';
+      import { initPlayer } from '../scripts/player';
       initI18n();
       initReveal();
       initReels();
+      initPlayer();
     </script>
   </body>
 </html>

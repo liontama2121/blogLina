@@ -1,0 +1,57 @@
+---
+/** Cierre de página: credencial de prensa colgante con los datos de contacto.
+ *  WhatsApp es la acción principal; correo y CV son secundarias. */
+import SocialLinks from './SocialLinks.astro';
+import { SITE, PHOTOS } from '../data/site';
+import { url } from '../data/media';
+import { getDict, DEFAULT_LANG, type Lang } from '../i18n';
+interface Props { lang?: Lang; field?: 'rosa' | 'hueso' }
+const { lang = DEFAULT_LANG, field = 'rosa' } = Astro.props;
+const d = getDict(lang);
+const year = new Date().getFullYear();
+---
+<section class={`overflow-hidden ${field === 'hueso' ? 'bg-hueso-2' : 'bg-rosa'}`}>
+  <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-12 lg:gap-14 lg:py-28">
+    <div class="lg:col-span-7" data-reveal>
+      <h2 class="display-mega text-tinta !text-[clamp(3.75rem,9vw,8.75rem)]" data-i18n="home.cierreTitle">{d.home.cierreTitle}</h2>
+      <p class="lead mt-8 !text-tinta/80" data-i18n="home.cierreText">{d.home.cierreText}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={SITE.whatsappUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          <span data-i18n="contacto.whatsapp">{d.contacto.whatsapp}</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href={`mailto:${SITE.email}`} class="btn btn-ghost" data-i18n="contacto.email">{d.contacto.email}</a>
+      </div>
+    </div>
+
+    <!-- Credencial -->
+    <div class="relative mx-auto w-full max-w-[340px] pt-16 lg:col-span-5" data-reveal>
+      <div class="absolute left-1/2 top-0 h-20 w-3 -translate-x-1/2 bg-rosa-ink" aria-hidden="true"></div>
+      <article class="pass relative bg-hueso shadow-[var(--shadow-rosa)]">
+        <div class="mx-auto mt-3 h-2.5 w-14 rounded-full bg-hueso-2 ring-1 ring-tinta/15" aria-hidden="true"></div>
+        <div class="bg-tinta px-6 py-3 mt-4 text-center">
+          <p class="display-lg text-rosa" data-i18n="pase.prensa">{d.pase.prensa}</p>
+        </div>
+        <div class="flex gap-4 p-6">
+          <div class="duo h-28 w-24 shrink-0">
+            <img src={url(PHOTOS.hero)} alt="" loading="lazy" class="h-full w-full object-cover" />
+          </div>
+          <div class="flex min-w-0 flex-col justify-center gap-1">
+            <p class="font-display text-2xl font-extrabold uppercase leading-none [font-variation-settings:'wdth'_75]">Lina Marcela Pérez</p>
+            <p class="text-sm font-semibold text-tinta-suave" data-i18n="pase.rol">{d.pase.rol}</p>
+          </div>
+        </div>
+        <dl class="grid grid-cols-2 gap-x-4 gap-y-3 border-t border-dashed border-tinta/25 px-6 py-5 text-sm">
+          <div><dt class="kicker text-tinta-suave">WhatsApp</dt><dd class="font-semibold">{SITE.whatsappNumero}</dd></div>
+          <div><dt class="kicker text-tinta-suave">Instagram</dt><dd class="font-semibold">{SITE.instagramHandle}</dd></div>
+          <div><dt class="kicker text-tinta-suave" data-i18n="pase.idioma">{d.pase.idioma}</dt><dd class="font-semibold">ES / EN C1</dd></div>
+          <div><dt class="kicker text-tinta-suave" data-i18n="pase.temporada">{d.pase.temporada}</dt><dd class="font-semibold">{year}</dd></div>
+        </dl>
+        <div class="flex items-center justify-between gap-3 bg-rosa px-6 py-4">
+          <a href={SITE.cvEs} target="_blank" rel="noopener" class="link-ed text-sm font-bold" data-i18n="nav.cv" data-i18n-attr="href:hero.cvUrl">{d.nav.cv}</a>
+          <SocialLinks size={16} class="!gap-2 [&_a]:!h-9 [&_a]:!w-9" />
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

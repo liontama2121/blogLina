@@ -59,12 +59,16 @@ function loadDiscarded() {
   return set;
 }
 
+/** Codifica un nombre de archivo para URL (espacios, #, acentos, etc.).
+ *  Sin esto, un '#' en el nombre rompe la ruta (el navegador lo trata como fragmento). */
+const enc = (s) => encodeURIComponent(s);
+
 function findPoster(tipo, base) {
   const posterDir = join(MEDIA_DIR, tipo, 'poster');
   if (!existsSync(posterDir)) return null;
   for (const ext of POSTER_EXT) {
     const p = join(posterDir, base + ext);
-    if (existsSync(p)) return `/media/${tipo}/poster/${base}${ext}`;
+    if (existsSync(p)) return `/media/${tipo}/poster/${enc(base + ext)}`;
   }
   return null;
 }
@@ -73,7 +77,7 @@ function findPoster(tipo, base) {
 function findSiblingPoster(tipo, dir, base) {
   for (const ext of POSTER_EXT) {
     const p = join(dir, base + ext);
-    if (existsSync(p)) return `/media/${tipo}/${base}${ext}`;
+    if (existsSync(p)) return `/media/${tipo}/${enc(base + ext)}`;
   }
   return null;
 }
@@ -92,7 +96,8 @@ for (const tipo of ALL_TYPES) {
     if (!statSync(full).isFile()) continue; // ignora subcarpeta poster/
     const { name: base, ext } = parse(name);
     const e = ext.toLowerCase();
-    const rel = `/media/${tipo}/${name}`;
+    const rel = `/media/${tipo}/${name}`;        // ruta cruda (para casar descartados)
+    const relEnc = `/media/${tipo}/${enc(name)}`; // ruta URL-segura (la que se emite)
 
     if (discarded.has(rel)) continue;
 
@@ -107,7 +112,7 @@ for (const tipo of ALL_TYPES) {
       const poster = findPoster(tipo, base) || findSiblingPoster(tipo, dir, base);
       items.push({
         tipo,
-        src: rel,
+        src: relEnc,
         poster: poster || '',
         titulo: inferTitle(base),
         ratio: DEFAULT_RATIO[tipo],
@@ -117,7 +122,7 @@ for (const tipo of ALL_TYPES) {
       if (!IMAGE_EXT.has(e)) continue; // descarta .mp4 dentro de image/
       items.push({
         tipo,
-        src: rel,
+        src: relEnc,
         poster: '',
         titulo: inferTitle(base),
         ratio: DEFAULT_RATIO[tipo],

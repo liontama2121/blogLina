@@ -1,63 +1,53 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PageMasthead from '../components/PageMasthead.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import MediaLogoCard from '../components/MediaLogoCard.astro';
 import { getDict, DEFAULT_LANG } from '../i18n';
-import { MEDIOS } from '../data/site';
-import media from '../data/media.json';
+import { mediosConLogo } from '../data/media';
 const lang = DEFAULT_LANG;
 const d = getDict(lang);
-type Item = { tipo: string; src: string; titulo: string };
-const logos = (media as Item[]).filter((m) => m.tipo === 'logos');
-
-function logoFor(matches: readonly string[]): string | undefined {
-  const lower = (s: string) => s.toLowerCase();
-  return logos.find((l) => matches.some((m) => lower(l.src).includes(lower(m))))?.src;
-}
-const otrosLogos = logos.filter((l) => !/rtvc/i.test(l.src)).map((l) => l.src);
-let idx = 0;
-const mediosResueltos = MEDIOS.map((m) => {
-  if (/rtvc/i.test(m.nombre)) return { ...m, logoSrc: logoFor(['rtvc', 'logotipo_de_rtvc']) };
-  const logoSrc = logoFor(m.match) ?? otrosLogos[idx++];
-  return { ...m, logoSrc };
-});
+const medios = mediosConLogo().filter((m) => m.logoSrc || !m.placeholder);
+const tones = ['rosa', 'hueso', 'hueso-2', 'hueso'] as const;
 const items: string[] = d.logros.items;
 ---
-<BaseLayout lang={lang} title={d.nav.logros} description={d.logros.text}>
-  <section class="bg-crema">
-    <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6">
-      <SectionTitle i18nKey="logros.title" text={d.logros.title} align="center" />
-      <p class="mx-auto mt-6 max-w-2xl text-center text-lg leading-relaxed text-gris-suave" data-reveal data-i18n="logros.text">{d.logros.text}</p>
+<BaseLayout lang={lang} title={d.logros.title} description={d.logros.text}>
+  <PageMasthead title={d.logros.title} titleKey="logros.title" lead={d.logros.text} leadKey="logros.text" field="rosa" />
 
-      <!-- Hitos -->
-      <h2 class="mt-16 font-display text-2xl italic text-rosa" data-reveal data-i18n="logros.highlightsTitle">{d.logros.highlightsTitle}</h2>
-      <ul class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2" data-reveal-group>
-        {items.map((it, i) => (
-          <li class="flex items-start gap-3 rounded-2xl border border-dorado/25 bg-white/60 p-5 shadow-[var(--shadow-soft)]" data-reveal>
-            <span class="mt-1 text-coral" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 6.9H22l-5.8 4.2 2.2 6.9L12 16l-6.4 4 2.2-6.9L2 8.9h7.6L12 2z"/></svg>
-            </span>
-            <span class="text-carbon/90" data-i18n={`logros.items.${i}`}>{it}</span>
-          </li>
-        ))}
-      </ul>
-
-      <!-- Medios -->
-      <h2 class="mt-16 font-display text-2xl italic text-rosa" data-reveal data-i18n="logros.mediosTitle">{d.logros.mediosTitle}</h2>
-      <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4" data-reveal-group>
-        {mediosResueltos.map((m) => (
-          (m.logoSrc || !('placeholder' in m && m.placeholder)) && (
-            <MediaLogoCard
-              nombre={m.nombre}
-              url={m.url}
-              logoSrc={m.logoSrc}
-              ctaText={d.redaccion.cta}
-              ctaKey="redaccion.cta"
-              placeholder={'placeholder' in m ? m.placeholder : false}
-            />
-          )
+  <!-- Medios -->
+  <section class="bg-hueso">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-24">
+      <SectionTitle i18nKey="logros.mediosTitle" text={d.logros.mediosTitle} />
+      <div class="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:mt-12 lg:grid-cols-4" data-reveal-group>
+        {medios.map((m, i) => (
+          <MediaLogoCard
+            nombre={m.nombre}
+            url={m.url}
+            logoSrc={m.logoSrc}
+            ctaText={d.logros.verPerfil}
+            ctaKey="logros.verPerfil"
+            pendingText={d.logros.pendiente}
+            pendingKey="logros.pendiente"
+            placeholder={m.placeholder}
+            tone={tones[i % tones.length]}
+          />
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- Hitos: dos columnas, número grande como marcador editorial -->
+  <section class="bg-hueso-2">
+    <div class="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:py-28">
+      <h2 class="display-lg text-tinta lg:col-span-4" data-reveal data-i18n="logros.highlightsTitle">{d.logros.highlightsTitle}</h2>
+      <ol class="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:col-span-8" data-reveal-group>
+        {items.map((it, i) => (
+          <li class="flex flex-col gap-3 border-t-2 border-tinta pt-5" data-reveal>
+            <span class="font-display text-4xl font-bold text-rosa-ink" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <span class="text-lg leading-relaxed text-tinta" data-i18n={`logros.items.${i}`}>{it}</span>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 </BaseLayout>

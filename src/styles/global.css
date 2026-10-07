@@ -1,29 +1,34 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Sistema de diseño — Portafolio Lina Marcela Pérez
-   Paleta: Vintage Garden + blush editorial
+   Sistema de diseño · Portafolio Lina Marcela Pérez
+   Mundo: tabloide editorial de farándula. Solo dos familias:
+   rosa (de pastel a tinta profunda) y blanco hueso.
+   Todas las fotos van en duotono rosa y recuperan su color al
+   interactuar. Forma: bloques y medios rectos; botones pill.
    ============================================================ */
 @theme {
-  /* Colores de marca (Tailwind v4 expone util: bg-crema, text-rosa, etc.) */
-  --color-crema: #FBF5EF;
-  --color-blush: #F6E2E5;
-  --color-blush-2: #F3D9DD;
-  --color-rosa: #D98BA3;
-  --color-coral: #EF7C72;
-  --color-salvia: #9CAE8B;
-  --color-terracota: #C98A6B;
-  --color-dorado: #C8A45C;
-  --color-carbon: #2E2A28;
-  --color-gris-suave: #6B6560;
+  /* Hueso */
+  --color-hueso: #F5EFE6;
+  --color-hueso-2: #EBE3D6;
+
+  /* Rosa */
+  --color-rosa-soft: #FAE3E9;
+  --color-rosa: #F4C3D0;      /* campo pastel */
+  --color-rosa-deep: #E896AE; /* acento saturado */
+  --color-rosa-ink: #8E2C4D;  /* texto/acento AA sobre hueso y rosa */
+
+  /* Tinta: el rosa más oscuro (texto principal) */
+  --color-tinta: #2C1219;
+  --color-tinta-suave: #5E4148;
 
   /* Tipografía */
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
-  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
 
-  /* Sombras suaves premium */
-  --shadow-soft: 0 10px 40px -12px rgba(46, 42, 40, 0.18);
-  --shadow-card: 0 14px 50px -18px rgba(217, 139, 163, 0.35);
+  /* Sombras teñidas de rosa */
+  --shadow-soft: 0 18px 40px -24px rgba(44, 18, 25, 0.35);
+  --shadow-rosa: 0 24px 50px -24px rgba(142, 44, 77, 0.45);
 }
 
 /* ---- Base ---- */
@@ -31,16 +36,14 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
 
 body {
-  background-color: var(--color-crema);
-  color: var(--color-carbon);
+  background-color: var(--color-hueso);
+  color: var(--color-tinta);
   font-family: var(--font-body);
-  font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -48,106 +51,165 @@ body {
 h1, h2, h3, h4, .font-display {
   font-family: var(--font-display);
   font-optical-sizing: auto;
+  letter-spacing: -0.025em;
 }
 
-/* ---- Utilidades de marca ---- */
+::selection { background: var(--color-rosa-deep); color: var(--color-tinta); }
 
-/* Título de sección estilo PDF: Fraunces itálica + rosa */
-.title-script {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-optical-sizing: auto;
-  font-weight: 500;
-  color: var(--color-rosa);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
+@layer components {
+  /* ---- Tipografía tabloide: display condensada ---- */
+  .display-mega {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-stretch: 75%;
+    font-variation-settings: "wdth" 75;
+    font-size: clamp(4rem, 15.5vw, 15rem);
+    line-height: 0.82;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+  }
+  .display-xl {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-variation-settings: "wdth" 75;
+    font-size: clamp(3rem, 8vw, 7.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+  }
+  .display-lg {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-variation-settings: "wdth" 75;
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+  }
+  .display-md {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-variation-settings: "wdth" 85;
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .kicker {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .lead {
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--color-tinta-suave);
+    max-width: 60ch;
+  }
+
+  /* ---- Botones (pill) ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    white-space: nowrap;
+    border-radius: 9999px;
+    padding: 0.9rem 1.55rem;
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease,
+      color 0.25s ease, border-color 0.25s ease, box-shadow 0.3s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0) scale(0.98); }
+  .btn svg { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+  .btn:hover svg { transform: translateX(3px); }
+
+  .btn-primary {
+    background: var(--color-tinta);
+    color: var(--color-hueso);
+    box-shadow: var(--shadow-soft);
+  }
+  .btn-primary:hover { background: var(--color-rosa-ink); }
+
+  .btn-ghost {
+    border: 1.5px solid var(--color-tinta);
+    color: var(--color-tinta);
+    background: transparent;
+  }
+  .btn-ghost:hover { background: var(--color-tinta); color: var(--color-hueso); }
+
+  /* Link editorial con subrayado animado */
+  .link-ed {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1.5px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-bottom: 2px;
+  }
+  .link-ed:hover, .link-ed:focus-visible { background-size: 100% 1.5px; }
+
+  /* ---- Duotono rosa ----
+     Envolver la <img> en .duo. La foto se ve en blanco y negro teñida de rosa
+     (mantiene la página en dos colores) y recupera su color al hover/foco. */
+  .duo {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-rosa);
+    isolation: isolate;
+  }
+  .duo img, .duo video {
+    filter: grayscale(1) contrast(1.08) brightness(1.06);
+    mix-blend-mode: multiply;
+    transition: filter 0.6s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .duo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--color-tinta);
+    mix-blend-mode: lighten;
+    opacity: 0.9;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+  }
+  .duo:hover img, .duo:focus-within img, .group:hover .duo img, .duo.is-color img,
+  .duo:hover video, .duo.is-color video, .duo.playing video {
+    filter: none;
+    mix-blend-mode: normal;
+  }
+  .duo:hover::after, .duo:focus-within::after, .group:hover .duo::after, .duo.is-color::after, .duo.playing::after { opacity: 0; }
 }
 
-/* Hairline dorada premium */
-.hairline {
-  height: 1px;
-  width: 100%;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--color-dorado) 18%,
-    var(--color-dorado) 82%,
-    transparent
-  );
-  opacity: 0.55;
-}
-
-/* Botón pill base */
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: 9999px;
-  padding: 0.7rem 1.5rem;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
-  will-change: transform;
-}
-.pill:hover { transform: translateY(-2px); }
-
-.pill-solid {
-  background-color: var(--color-rosa);
-  color: #fff;
-  box-shadow: var(--shadow-card);
-}
-.pill-solid:hover { background-color: var(--color-coral); }
-
-.pill-outline {
-  border: 1px solid var(--color-dorado);
-  color: var(--color-carbon);
-  background-color: transparent;
-}
-.pill-outline:hover {
-  border-color: var(--color-rosa);
-  color: var(--color-rosa);
-}
-
-/* Reveal: estado inicial para animación con Anime.js */
-[data-reveal] {
-  opacity: 0;
-  transform: translateY(24px);
-}
-[data-hero-item] {
-  opacity: 0;
-  transform: translateY(28px);
-}
+/* ---- Reveal (Anime.js) ---- */
+[data-reveal] { opacity: 0; transform: translateY(24px); }
+[data-hero-item] { opacity: 0; transform: translateY(28px); }
+.no-js [data-reveal], .no-js [data-hero-item] { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  [data-hero-item] { opacity: 1 !important; transform: none !important; }
+  [data-reveal], [data-hero-item] { opacity: 1 !important; transform: none !important; }
 }
-.no-js [data-hero-item] { opacity: 1; transform: none; }
-.reveal-ready [data-reveal] { /* JS desactivado-safe override aplicado abajo */ }
 
-/* Si no hay JS o se prefiere reduced-motion, mostrar sin animar */
-@media (prefers-reduced-motion: reduce) {
-  [data-reveal] { opacity: 1 !important; transform: none !important; }
-}
-.no-js [data-reveal] { opacity: 1; transform: none; }
-
-/* Foco visible accesible */
 :focus-visible {
-  outline: 2px solid var(--color-rosa);
+  outline: 2.5px solid var(--color-rosa-ink);
   outline-offset: 3px;
-  border-radius: 4px;
 }
 
-/* Badge LIVE */
+/* ---- Badge EN VIVO (estado real) ---- */
 .badge-live {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: #E0245E;
-  color: #fff;
+  background: var(--color-rosa-ink);
+  color: var(--color-hueso);
   font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 0.25rem 0.6rem;
+  padding: 0.3rem 0.65rem;
   border-radius: 9999px;
 }
 .badge-live::before {
@@ -155,36 +217,62 @@ h1, h2, h3, h4, .font-display {
   width: 0.45rem;
   height: 0.45rem;
   border-radius: 9999px;
-  background: #fff;
+  background: var(--color-hueso);
   animation: pulse-live 1.4s ease-in-out infinite;
 }
 @keyframes pulse-live {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(0.7); }
 }
-@media (prefers-reduced-motion: reduce) {
-  .badge-live::before { animation: none; }
-}
 
-/* Hover premium en tarjetas de reel (tras el reveal, el transform inline se limpia) */
+/* ---- Reel ---- */
 .reel {
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease;
 }
-.reel:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 60px -20px rgba(217, 139, 163, 0.55);
+.reel:hover { transform: translateY(-6px); box-shadow: var(--shadow-rosa); }
+
+/* ---- Marquesina de medios (única en la página) ---- */
+.marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
 }
-@media (prefers-reduced-motion: reduce) {
-  .reel:hover { transform: none; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* ---- Polaroids: rotación leve, se enderezan al hover ---- */
+.polaroid {
+  transform: rotate(var(--rot, 0deg));
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+}
+.polaroid:hover, .polaroid:focus-within {
+  transform: rotate(0deg) translateY(-8px) scale(1.03);
+  box-shadow: var(--shadow-rosa);
+  z-index: 2;
 }
 
-/* Corazón flotante decorativo */
-@keyframes float-heart {
-  0% { transform: translateY(0) rotate(-6deg); opacity: 0.9; }
-  50% { transform: translateY(-10px) rotate(6deg); opacity: 1; }
-  100% { transform: translateY(0) rotate(-6deg); opacity: 0.9; }
+/* ---- Credencial de prensa: balanceo sutil ---- */
+.pass { transform-origin: 50% -40px; transform: rotate(-3deg); transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.pass:hover { transform: rotate(0deg); }
+
+/* ---- Lista de entrevistas del reproductor ---- */
+.cue[aria-current="true"] { background: var(--color-rosa); }
+.cue[aria-current="true"] .cue-num { color: var(--color-rosa-ink); }
+
+/* ---- Índice tipográfico ---- */
+.index-link .index-word {
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
 }
-.float-heart { animation: float-heart 3.5s ease-in-out infinite; }
+.index-link:hover .index-word, .index-link:focus-visible .index-word {
+  transform: translateX(1.25rem);
+  color: var(--color-rosa-ink);
+}
+.index-link .index-arrow { opacity: 0; transform: translateX(-12px); transition: opacity 0.3s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1); }
+.index-link:hover .index-arrow, .index-link:focus-visible .index-arrow { opacity: 1; transform: translateX(0); }
+
 @media (prefers-reduced-motion: reduce) {
-  .float-heart { animation: none; }
+  .badge-live::before, .marquee-track { animation: none; }
+  .reel:hover, .polaroid:hover, .pass, .pass:hover { transform: none; }
+  .index-link .index-word, .index-link .index-arrow, .duo img, .duo video { transition: none; }
 }

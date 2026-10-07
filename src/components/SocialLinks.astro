@@ -4,10 +4,10 @@ import { SITE } from '../data/site';
 interface Props {
   size?: number;
   class?: string;
-  tone?: 'rosa' | 'carbon' | 'white';
+  tone?: 'tinta' | 'hueso';
 }
-const { size = 22, class: cls = '', tone = 'rosa' } = Astro.props;
-const toneCls = tone === 'white' ? 'text-white' : tone === 'carbon' ? 'text-carbon' : 'text-rosa';
+const { size = 20, class: cls = '', tone = 'tinta' } = Astro.props;
+const toneCls = tone === 'hueso' ? 'text-hueso border-hueso/30 hover:bg-hueso hover:text-tinta' : 'text-tinta border-tinta/20 hover:bg-rosa';
 const links = [
   { href: SITE.instagramUrl, label: `Instagram ${SITE.instagramHandle}`, icon: 'ig' },
   { href: SITE.tiktokUrl, label: `TikTok ${SITE.tiktokHandle}`, icon: 'tt' },
@@ -22,7 +22,7 @@ const links = [
         target="_blank"
         rel="noopener noreferrer"
         aria-label={l.label}
-        class={`grid h-10 w-10 place-items-center rounded-full border border-current/20 bg-white/60 ${toneCls} transition-transform duration-300 hover:scale-110 hover:bg-white`}
+        class={`grid h-11 w-11 place-items-center rounded-full border ${toneCls} transition-[transform,background-color,color] duration-300 hover:-translate-y-0.5`}
       >
         {l.icon === 'ig' && (
           <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">

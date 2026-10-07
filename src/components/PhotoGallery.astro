@@ -1,26 +1,26 @@
 ---
-type Item = { tipo: string; src: string; titulo: string };
-/** Galería masonry responsive para fotos (image/). */
+import { url, type MediaItem } from '../data/media';
+/** Fotos con artistas como polaroids en duotono rosa: ligeramente giradas,
+ *  se enderezan y recuperan el color al pasar el cursor. */
 interface Props {
-  items: Item[];
+  items: MediaItem[];
   altBase?: string;
 }
 const { items, altBase = 'Lina Marcela Pérez con artistas y en cobertura' } = Astro.props;
+const rots = ['-2.5deg', '1.8deg', '-1.2deg', '2.6deg', '-1.8deg', '1.2deg'];
 ---
-<div class="gallery columns-2 gap-4 sm:columns-3 lg:columns-4 [&>*]:mb-4" data-reveal-group>
+<div class="columns-2 gap-5 sm:columns-3 lg:columns-4 [&>*]:mb-6" data-reveal-group>
   {items.map((it, i) => (
-    <figure
-      class="group relative break-inside-avoid overflow-hidden rounded-2xl bg-blush-2 shadow-[var(--shadow-soft)] ring-1 ring-black/5"
-      data-reveal
-    >
-      <img
-        src={it.src}
-        alt={it.titulo || `${altBase} (${i + 1})`}
-        loading="lazy"
-        decoding="async"
-        class="w-full transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-      />
-      <span class="pointer-events-none absolute inset-0 bg-gradient-to-t from-carbon/0 to-carbon/0 transition-colors duration-300 group-hover:from-carbon/25"></span>
+    <figure class="polaroid relative break-inside-avoid bg-hueso p-2.5 pb-8 shadow-[var(--shadow-soft)] ring-1 ring-tinta/5" style={`--rot:${rots[i % rots.length]}`} data-reveal tabindex="0">
+      <div class="duo">
+        <img
+          src={url(it.src)}
+          alt={it.titulo || `${altBase} (${i + 1})`}
+          loading="lazy"
+          decoding="async"
+          class="block w-full"
+        />
+      </div>
     </figure>
   ))}
 </div>

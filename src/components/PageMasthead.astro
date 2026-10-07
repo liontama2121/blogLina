@@ -1,0 +1,37 @@
+---
+/** Cabecera de página interna estilo tabloide: campo rosa o hueso, título condensado gigante,
+ *  entradilla y, opcional, foto en duotono pegada como recorte de revista. */
+import { url } from '../data/media';
+interface Props {
+  title: string;
+  titleKey: string;
+  lead?: string;
+  leadKey?: string;
+  field?: 'rosa' | 'hueso';
+  image?: string;
+  imageAlt?: string;
+}
+const { title, titleKey, lead, leadKey, field = 'rosa', image, imageAlt = '' } = Astro.props;
+const fieldCls = field === 'hueso' ? 'bg-hueso-2' : 'bg-rosa';
+---
+<section class={`relative overflow-hidden ${fieldCls}`} data-hero>
+  <div class={`mx-auto grid max-w-7xl gap-10 px-4 pb-14 pt-14 sm:px-6 lg:pb-20 lg:pt-20 ${image ? 'items-center lg:grid-cols-12' : ''}`}>
+    <div class={`flex flex-col gap-6 ${image ? 'lg:col-span-7' : ''}`}>
+      <h1 class="display-xl text-tinta" data-hero-item data-i18n={titleKey}>{title}</h1>
+      <div class="h-1.5 w-24 bg-rosa-ink" aria-hidden="true" data-hero-item></div>
+      {lead && (
+        <p class="lead !text-tinta/80" data-hero-item {...(leadKey ? { 'data-i18n': leadKey } : {})}>{lead}</p>
+      )}
+      <slot />
+    </div>
+    {image && (
+      <div class="lg:col-span-5" data-hero-item>
+        <div class="polaroid mx-auto w-[min(64vw,260px)] bg-hueso p-2.5 pb-10 sm:w-full sm:max-w-sm sm:p-3 sm:pb-14 shadow-[var(--shadow-rosa)]" style="--rot:3deg">
+          <div class="duo aspect-[4/5]">
+            <img src={url(image)} alt={imageAlt} class="h-full w-full object-cover" loading="eager" fetchpriority="high" />
+          </div>
+        </div>
+      </div>
+    )}
+  </div>
+</section>

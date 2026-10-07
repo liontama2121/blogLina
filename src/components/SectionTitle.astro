@@ -1,33 +1,18 @@
 ---
-import Squiggle from './Squiggle.astro';
-/** Título de sección: Fraunces itálica + rosa, con squiggle opcional. */
+/** Título de sección: display sans, tinta. Entradilla opcional debajo (apilada, máx 60ch). */
 interface Props {
-  i18nKey: string;       // ej: "perfil.title"
-  text: string;          // texto ES por defecto (server-render)
-  eyebrow?: string;      // pequeño rótulo arriba
-  eyebrowKey?: string;
-  squiggle?: boolean;
+  i18nKey: string;
+  text: string;
+  lead?: string;
+  leadKey?: string;
   align?: 'left' | 'center';
+  as?: 'h1' | 'h2';
   id?: string;
 }
-const {
-  i18nKey,
-  text,
-  eyebrow,
-  eyebrowKey,
-  squiggle = true,
-  align = 'left',
-  id,
-} = Astro.props;
+const { i18nKey, text, lead, leadKey, align = 'left', as: Tag = 'h2', id } = Astro.props;
 const alignCls = align === 'center' ? 'items-center text-center' : 'items-start text-left';
 ---
-<header class={`flex flex-col gap-3 ${alignCls}`} data-reveal id={id}>
-  {eyebrow && (
-    <span
-      class="text-xs font-semibold uppercase tracking-[0.22em] text-salvia"
-      {...(eyebrowKey ? { 'data-i18n': eyebrowKey } : {})}
-    >{eyebrow}</span>
-  )}
-  <h2 class="title-script text-4xl sm:text-5xl lg:text-6xl" data-i18n={i18nKey}>{text}</h2>
-  {squiggle && <Squiggle variant="underline" width="160" class="mt-1" />}
+<header class={`flex flex-col gap-4 ${alignCls}`} data-reveal id={id}>
+  <Tag class="display-lg text-tinta" data-i18n={i18nKey}>{text}</Tag>
+  {lead && <p class="lead" {...(leadKey ? { 'data-i18n': leadKey } : {})}>{lead}</p>}
 </header>

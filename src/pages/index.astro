@@ -1,102 +1,150 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SocialLinks from '../components/SocialLinks.astro';
-import Squiggle from '../components/Squiggle.astro';
+import InterviewPlayer from '../components/InterviewPlayer.astro';
+import PhotoGallery from '../components/PhotoGallery.astro';
+import ContactClose from '../components/ContactClose.astro';
 import { getDict, DEFAULT_LANG } from '../i18n';
-import { SITE } from '../data/site';
+import { SITE, PHOTOS, STATS, MEDIOS } from '../data/site';
+import { url, destacadas, mediosConLogo, fotosArtistas } from '../data/media';
 
 const lang = DEFAULT_LANG;
 const d = getDict(lang);
 
-// PLACEHOLDER — foto de portada del hero (poster del video / fallback).
-const HERO_IMAGE = '/media/image/463824637_18463612693060418_5005392328436031798_n..jpg';
-// Video de portada (loop, sin sonido).
 const HERO_VIDEO = '/media/hero.mp4';
+const featured = destacadas();
+const logos = mediosConLogo().filter((m) => m.logoSrc);
+const fotos = fotosArtistas();
 
-const cards = [
-  { href: '/quien-soy/', key: 'home.cards.quienSoy', navKey: 'nav.quienSoy', label: d.nav.quienSoy, text: d.home.cards.quienSoy },
-  { href: '/por-que-contratarme/', key: 'home.cards.contratarme', navKey: 'nav.contratarme', label: d.nav.contratarme, text: d.home.cards.contratarme },
-  { href: '/entrevistas/', key: 'home.cards.entrevistas', navKey: 'nav.entrevistas', label: d.nav.entrevistas, text: d.home.cards.entrevistas },
-  { href: '/logros/', key: 'home.cards.logros', navKey: 'nav.logros', label: d.nav.logros, text: d.home.cards.logros },
-  { href: '/estadisticas/', key: 'home.cards.estadisticas', navKey: 'nav.estadisticas', label: d.nav.estadisticas, text: d.home.cards.estadisticas },
+// Solo datos reales (site.ts). Medios = cantidad de MEDIOS listados.
+const numeros = [
+  { valor: STATS.tiktok.seguidores, key: 'numeros.seguidores', label: d.numeros.seguidores },
+  { valor: STATS.tiktok.likes, key: 'numeros.likes', label: d.numeros.likes },
+  { valor: String(MEDIOS.length), key: 'numeros.medios', label: d.numeros.medios },
+  { valor: 'C1', key: 'numeros.ingles', label: d.numeros.ingles },
 ];
+
+const indice = [
+  { href: '/quien-soy/', key: 'nav.quienSoy', label: d.nav.quienSoy, dKey: 'home.cards.quienSoy', desc: d.home.cards.quienSoy },
+  { href: '/por-que-contratarme/', key: 'nav.contratarme', label: d.nav.contratarme, dKey: 'home.cards.contratarme', desc: d.home.cards.contratarme },
+  { href: '/entrevistas/', key: 'nav.entrevistas', label: d.nav.entrevistas, dKey: 'home.cards.entrevistas', desc: d.home.cards.entrevistas },
+  { href: '/logros/', key: 'nav.logros', label: d.nav.logros, dKey: 'home.cards.logros', desc: d.home.cards.logros },
+  { href: '/estadisticas/', key: 'nav.estadisticas', label: d.nav.estadisticas, dKey: 'home.cards.estadisticas', desc: d.home.cards.estadisticas },
+];
+const arrow = 'M5 12h14M13 6l6 6-6 6';
 ---
 <BaseLayout lang={lang}>
-  <!-- HERO -->
-  <section class="relative overflow-hidden" data-hero>
-    <div class="pointer-events-none absolute -right-20 -top-24 h-80 w-80 rounded-full bg-blush blur-3xl opacity-70"></div>
-    <div class="pointer-events-none absolute -left-24 top-40 h-72 w-72 rounded-full bg-salvia/20 blur-3xl"></div>
-    <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-2 lg:gap-16 lg:py-28">
-      <div class="flex flex-col items-start gap-6">
-        <span class="pill pill-outline !py-1.5 text-xs" data-hero-item>
-          <span class="inline-block h-2 w-2 rounded-full bg-salvia"></span>
-          <span data-i18n="hero.badge">{d.hero.badge}</span>
-        </span>
-        <h1 class="font-display text-5xl leading-[0.95] text-carbon sm:text-6xl lg:text-7xl" data-hero-item>
-          Lina <span class="italic text-rosa">Marcela</span>
+  <!-- PORTADA: rosa total, nombre condensado gigante + video en polaroid duotono -->
+  <section class="relative overflow-hidden bg-rosa" data-hero>
+    <div class="mx-auto grid max-w-7xl gap-12 px-4 pb-14 pt-8 sm:px-6 lg:min-h-[min(calc(100dvh-72px),900px)] lg:grid-cols-12 lg:items-center lg:gap-8 lg:pb-14 lg:pt-8">
+      <div class="lg:col-span-8">
+        <h1 class="display-mega text-tinta !text-[clamp(4.5rem,13.5vw,13.5rem)]" data-hero-item>
+          Lina<br />Marcela<br /><span class="text-rosa-ink">Pérez</span>
         </h1>
-        <p class="max-w-md text-lg text-gris-suave" data-hero-item data-i18n="hero.role">{d.hero.role}</p>
-        <p class="max-w-lg text-base text-carbon/80" data-hero-item data-i18n="home.intro">{d.home.intro}</p>
-        <div class="flex flex-wrap items-center gap-3" data-hero-item>
-          <a href="/por-que-contratarme/" class="pill pill-solid" data-i18n="nav.contratarme">{d.nav.contratarme}</a>
-          <a
-            href={SITE.cvEs}
-            target="_blank"
-            rel="noopener"
-            class="pill pill-outline"
-            data-i18n="hero.ctaKit"
-            data-i18n-attr="href:hero.cvUrl"
-          >{d.hero.ctaKit}</a>
+        <p class="lead mt-8 !text-tinta/80" data-hero-item data-i18n="hero.sub">{d.hero.sub}</p>
+        <div class="mt-8 flex flex-wrap gap-3" data-hero-item>
+          <a href="#entrevistas" class="btn btn-primary">
+            <span data-i18n="hero.ctaPrimary">{d.hero.ctaPrimary}</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d={arrow} stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href={SITE.cvEs} target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="hero.ctaCv" data-i18n-attr="href:hero.cvUrl">{d.hero.ctaCv}</a>
         </div>
-        <div data-hero-item><SocialLinks /></div>
       </div>
 
-      <div class="relative mx-auto w-full max-w-sm" data-hero-item>
-        <div class="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-rosa/30 via-blush to-coral/20 blur-xl"></div>
-        <div class="relative overflow-hidden rounded-[2rem] bg-[#17120f] ring-1 ring-dorado/30 shadow-[var(--shadow-card)]">
-          <video
-            src={HERO_VIDEO}
-            poster={HERO_IMAGE}
-            class="aspect-[9/16] w-full object-contain"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            aria-label="Video de presentación de Lina Marcela Pérez"
-          ></video>
-        </div>
-        <div class="float-heart absolute -right-3 -top-3 text-coral">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9C.9 9.2 2.3 6 5.3 6c1.8 0 3 .9 3.7 2 .7-1.1 1.9-2 3.7-2 3 0 4.4 3.2 3 6-2.2 4.4-9.7 9-9.7 9Z"/></svg>
+      <div class="lg:col-span-4" data-hero-item>
+        <div class="polaroid mx-auto w-[min(64vw,260px)] sm:w-[min(50vw,320px)] bg-hueso p-3 pb-12 shadow-[var(--shadow-rosa)] lg:w-full lg:max-w-[340px]" style="--rot:4deg">
+          <div class="duo aspect-[9/16]">
+            <video
+              src={HERO_VIDEO}
+              poster={url(PHOTOS.hero)}
+              class="h-full w-full object-cover"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              data-hero-video
+              aria-label={d.hero.videoLabel}
+              data-i18n-attr="aria-label:hero.videoLabel"
+            ></video>
+          </div>
         </div>
       </div>
     </div>
-    <div class="mx-auto max-w-7xl px-6"><div class="hairline"></div></div>
   </section>
 
-  <!-- EXPLORA (cards a páginas) -->
-  <section class="bg-crema">
-    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
-      <div class="flex flex-col items-center gap-3 text-center" data-reveal>
-        <span class="text-xs font-semibold uppercase tracking-[0.22em] text-salvia" data-i18n="home.explorar">{d.home.explorar}</span>
-        <Squiggle variant="underline" width="150" />
-      </div>
-      <div class="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
-        {cards.map((c) => (
-          <a
-            href={c.href}
-            class="reel group flex flex-col gap-3 rounded-3xl border border-dorado/30 bg-white/60 p-7 shadow-[var(--shadow-soft)]"
-            data-reveal
-          >
-            <h2 class="font-display text-2xl italic text-rosa" data-i18n={c.navKey}>{c.label}</h2>
-            <p class="text-gris-suave" data-i18n={c.key}>{c.text}</p>
-            <span class="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-coral">
-              <span data-i18n="home.ver">{d.home.ver}</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" class="transition-transform group-hover:translate-x-1"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-          </a>
+  <!-- MEDIOS: única marquesina de la página -->
+  <section class="border-y border-tinta/10 bg-hueso-2 py-7" aria-label={d.home.medios}>
+    <div class="marquee">
+      <div class="marquee-track">
+        {[0, 1].map((dup) => (
+          <ul class="flex shrink-0 items-center gap-20 pr-20" aria-hidden={dup === 1 ? 'true' : undefined}>
+            {[...logos, ...logos].map((m) => (
+              <li class="flex h-14 items-center">
+                <img src={m.logoSrc} alt={dup === 0 ? m.nombre : ''} loading="lazy" class="max-h-12 w-auto max-w-[150px] object-contain mix-blend-multiply grayscale contrast-125" />
+              </li>
+            ))}
+          </ul>
         ))}
       </div>
     </div>
   </section>
+
+  <!-- ENTREVISTAS: sala de edición -->
+  <section id="entrevistas" class="scroll-mt-20 bg-hueso">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28">
+      <div class="mb-12 flex flex-col gap-5 md:flex-row md:items-end md:justify-between" data-reveal>
+        <h2 class="display-xl max-w-3xl text-tinta" data-i18n="home.destacadasTitle">{d.home.destacadasTitle}</h2>
+        <a href="/entrevistas/" class="link-ed inline-flex w-fit shrink-0 items-center gap-2 font-bold text-rosa-ink">
+          <span data-i18n="home.verTodas">{d.home.verTodas}</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d={arrow} stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <InterviewPlayer items={featured} lang={lang} />
+    </div>
+  </section>
+
+  <!-- NÚMEROS reales -->
+  <section class="bg-tinta text-hueso">
+    <dl class="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-12 px-4 py-16 sm:px-6 lg:grid-cols-4 lg:py-20" data-reveal-group>
+      {numeros.map((n) => (
+        <div class="flex flex-col gap-2 border-l-2 border-rosa pl-5" data-reveal>
+          <dt class="order-2 font-semibold text-hueso/70" data-i18n={n.key}>{n.label}</dt>
+          <dd class="order-1 display-xl text-rosa">{n.valor}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <!-- CON ARTISTAS: polaroids -->
+  <section class="bg-rosa-soft">
+    <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28">
+      <div class="mb-14 flex flex-col gap-5 md:flex-row md:items-end md:justify-between" data-reveal>
+        <h2 class="display-xl text-tinta" data-i18n="artistas.title">{d.artistas.title}</h2>
+        <a href="/entrevistas/" class="link-ed inline-flex w-fit shrink-0 items-center gap-2 font-bold text-rosa-ink">
+          <span data-i18n="artistas.link">{d.artistas.link}</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d={arrow} stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <PhotoGallery items={fotos} />
+    </div>
+  </section>
+
+  <!-- ÍNDICE tipográfico -->
+  <nav class="bg-hueso" aria-label="Índice">
+    <ul class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:py-24" data-reveal-group>
+      {indice.map((c) => (
+        <li class="border-b border-tinta/15" data-reveal>
+          <a href={c.href} class="index-link flex flex-col gap-2 py-6 md:flex-row md:items-center md:justify-between md:gap-10">
+            <span class="index-word display-xl inline-flex items-center gap-4 text-tinta">
+              <span data-i18n={c.key}>{c.label}</span>
+              <svg class="index-arrow hidden shrink-0 md:block" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="max-w-xs text-tinta-suave md:text-right" data-i18n={c.dKey}>{c.desc}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+
+  <ContactClose lang={lang} />
 </BaseLayout>

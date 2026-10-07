@@ -1,33 +1,53 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionTitle from '../components/SectionTitle.astro';
-import SocialLinks from '../components/SocialLinks.astro';
+import PageMasthead from '../components/PageMasthead.astro';
+import ContactClose from '../components/ContactClose.astro';
 import { getDict, DEFAULT_LANG } from '../i18n';
+import { SITE, PHOTOS } from '../data/site';
+import { url } from '../data/media';
 const lang = DEFAULT_LANG;
 const d = getDict(lang);
-const HERO_IMAGE = '/media/image/463824637_18463612693060418_5005392328436031798_n..jpg';
+const facts = [
+  { k: 'idioma', bg: 'bg-rosa' },
+  { k: 'medios', bg: 'bg-hueso-2' },
+  { k: 'foco', bg: 'bg-hueso ring-1 ring-tinta/10' },
+] as const;
 ---
-<BaseLayout lang={lang} title={d.nav.quienSoy} description={d.perfil.bio}>
-  <section class="bg-crema">
-    <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[0.9fr_1.1fr]">
-      <div class="relative mx-auto w-full max-w-sm" data-reveal>
-        <div class="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-rosa/30 via-blush to-coral/20 blur-xl"></div>
-        <img
-          src={HERO_IMAGE}
-          alt="Retrato de Lina Marcela Pérez"
-          class="relative aspect-[4/5] w-full rounded-[2rem] object-cover ring-1 ring-dorado/30 shadow-[var(--shadow-card)]"
-          loading="eager"
-        />
-      </div>
-      <div class="flex flex-col gap-6">
-        <SectionTitle i18nKey="perfil.title" text={d.perfil.title} />
-        <span class="pill pill-outline w-fit !py-1.5 text-xs" data-reveal>
-          <span class="inline-block h-2 w-2 rounded-full bg-salvia"></span>
-          <span data-i18n="hero.badge">{d.hero.badge}</span>
-        </span>
-        <p class="text-lg leading-relaxed text-carbon/90" data-reveal data-i18n="perfil.bio">{d.perfil.bio}</p>
-        <div data-reveal><SocialLinks /></div>
-      </div>
+<BaseLayout lang={lang} title={d.perfil.title} description={d.perfil.lead}>
+  <PageMasthead
+    title={d.perfil.title}
+    titleKey="perfil.title"
+    lead={d.perfil.lead}
+    leadKey="perfil.lead"
+    field="hueso"
+    image={PHOTOS.retrato}
+    imageAlt="Retrato de Lina Marcela Pérez con micrófono de RCN"
+  >
+    <div class="mt-3 flex flex-wrap gap-3" data-hero-item>
+      <a href={SITE.cvEs} target="_blank" rel="noopener" class="btn btn-primary" data-i18n="perfil.cvEs">{d.perfil.cvEs}</a>
+      <a href={SITE.cvEn} target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="perfil.cvEn">{d.perfil.cvEn}</a>
+    </div>
+  </PageMasthead>
+
+  <section class="bg-hueso">
+    <div class="mx-auto grid max-w-7xl gap-14 px-4 py-20 sm:px-6 lg:grid-cols-12 lg:py-24">
+      <p class="text-xl leading-relaxed text-tinta lg:col-span-7 lg:text-[1.35rem] lg:leading-[1.7]" data-reveal data-i18n="perfil.bio">{d.perfil.bio}</p>
+      <ul class="grid gap-4 lg:col-span-5" data-reveal-group>
+        {facts.map((f) => (
+          <li class={`flex flex-col gap-2 p-6 ${f.bg}`} data-reveal>
+            <span class="display-md text-tinta" data-i18n={`perfil.facts.${f.k}.t`}>{d.perfil.facts[f.k].t}</span>
+            <span class="text-tinta-suave" data-i18n={`perfil.facts.${f.k}.d`}>{d.perfil.facts[f.k].d}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
+
+  <section class="bg-hueso pb-20 lg:pb-28">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6" data-reveal>
+      <div class="duo aspect-[16/9] lg:aspect-[21/9]"><img src={url(PHOTOS.set)} alt="Lina Marcela Pérez entrevistando en el set de RCN Noticias" loading="lazy" class="h-full w-full object-cover" /></div>
+    </div>
+  </section>
+
+  <ContactClose lang={lang} />
 </BaseLayout>

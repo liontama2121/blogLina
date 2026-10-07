@@ -1,43 +1,43 @@
 ---
-/** Tarjeta de medio: logo + botón "ver y descubre" → link externo. */
+/** Medio: logo + enlace a sus publicaciones. */
 interface Props {
   nombre: string;
   url: string;
   logoSrc?: string;
-  ctaText?: string;
-  ctaKey?: string;
-  placeholder?: boolean; // URL pendiente (ej. RTVC)
+  ctaText: string;
+  ctaKey: string;
+  pendingText: string;
+  pendingKey: string;
+  placeholder?: boolean;
+  tone?: 'rosa' | 'hueso-2' | 'hueso';
 }
-const { nombre, url, logoSrc, ctaText = 'Ver y descubre', ctaKey, placeholder = false } = Astro.props;
+const { nombre, url, logoSrc, ctaText, ctaKey, pendingText, pendingKey, placeholder = false, tone = 'hueso' } = Astro.props;
 const disabled = placeholder || url === '#';
+const toneCls = tone === 'rosa' ? 'bg-rosa' : tone === 'hueso-2' ? 'bg-hueso-2' : 'bg-hueso ring-1 ring-tinta/10';
+const Tag = disabled ? 'div' : 'a';
+const linkProps = disabled ? {} : { href: url, target: '_blank', rel: 'noopener noreferrer' };
 ---
-<article
-  class="flex flex-col items-center gap-5 rounded-3xl border border-dorado/30 bg-white/60 p-7 text-center shadow-[var(--shadow-soft)] transition-transform duration-300 hover:-translate-y-1"
+<Tag
+  {...linkProps}
+  class={`group flex h-full flex-col justify-between gap-6 p-5 sm:gap-10 sm:p-7 transition-transform duration-500 ${toneCls} ${disabled ? '' : 'hover:-translate-y-1'}`}
   data-reveal
 >
-  <div class="flex h-20 w-full items-center justify-center">
+  <div class="flex h-12 items-center sm:h-16">
     {logoSrc ? (
-      <img src={logoSrc} alt={`Logo ${nombre}`} loading="lazy" class="max-h-16 w-auto max-w-[80%] object-contain" />
+      <img src={logoSrc} alt={`Logo ${nombre}`} loading="lazy" class="max-h-14 w-auto max-w-[70%] object-contain" />
     ) : (
-      <span class="font-display text-2xl italic text-rosa">{nombre}</span>
+      <span class="font-display text-2xl font-bold">{nombre}</span>
     )}
   </div>
-  <h3 class="sr-only">{nombre}</h3>
-  {disabled ? (
-    <span
-      class="pill pill-outline cursor-not-allowed opacity-50"
-      aria-disabled="true"
-      title="URL pendiente"
-      {...(ctaKey ? { 'data-i18n': ctaKey } : {})}
-    >{ctaText}</span>
-  ) : (
-    <a
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="pill pill-outline"
-      aria-label={`${ctaText} — ${nombre}`}
-      {...(ctaKey ? { 'data-i18n': ctaKey } : {})}
-    >{ctaText}</a>
-  )}
-</article>
+  <div class="flex flex-col items-start gap-2">
+    <h3 class="font-display text-lg font-bold tracking-tight sm:text-xl">{nombre}</h3>
+    {disabled ? (
+      <span class="text-sm font-semibold text-tinta-suave" data-i18n={pendingKey}>{pendingText}</span>
+    ) : (
+      <span class="inline-flex items-center gap-1.5 text-sm font-bold text-tinta">
+        <span data-i18n={ctaKey}>{ctaText}</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"><path d="M7 17L17 7M8 7h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    )}
+  </div>
+</Tag>

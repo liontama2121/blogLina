@@ -23,3 +23,6 @@ ffmpeg2pass-*
 # medios descartados (>24MB, no desplegar)
 _descartados-media/
 preview.log
+
+# capturas de revisión de diseño (impeccable)
+.impeccable/
